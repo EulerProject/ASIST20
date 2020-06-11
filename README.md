@@ -15,8 +15,8 @@ Over the years, information science professionals have been studying biases in K
 
 
 ## Use cases
--[Link to use cases datasets] (https://github.com/EulerProject/ASIST20/tree/master/UseCases)
+-[Link to use cases datasets](https://github.com/EulerProject/ASIST20/tree/master/UseCases)
 
 ## Population dataset used in this paper
 
--[Link to dataset] (https://github.com/EulerProject/ASIST20/tree/master/PopulationData)
+-[Link to dataset](https://github.com/EulerProject/ASIST20/tree/master/PopulationData)
