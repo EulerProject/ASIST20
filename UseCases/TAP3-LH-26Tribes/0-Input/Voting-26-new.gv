@@ -1,0 +1,135 @@
+digraph{
+rankdir=LR
+node[shape=circle style=filled fillcolor="#FFFFFF"] 
+node[shape=note style=filled fillcolor="#FFFFCC" fontname="helvetica"] 
+
+"T4.Taiwan"
+"T4.Thao"
+"T4.Kanakanavu"
+"T4.Sediq"
+"T4.Sakizaya"
+"T4.Atayal"
+"T4.Pinuyumayan"
+"T4.Paiwan"
+"T4.Yami"
+"T4.Rukai"
+"T4.Hlaalua"
+"T4.Saisiyat"
+"T4.Amis"
+"T4.Bunun"
+"T4.Truku"
+"T4.Kavalan"
+"T4.Tsou"
+
+node[shape=box style="filled,rounded,dotted" fillcolor="#FFCB99" fontname="helvetica"] 
+"T4.Siraya"
+"T4.Ketagalan"
+"T4.Pazih"
+"T4.Babuza"
+"T4.Kulon"
+"T4.Papora"
+"T4.Taokas"
+"T4.Makatao"
+"T4.Hoanya"
+"T4.Taivoan"
+
+
+node[shape=circle style=filled fillcolor="#FFFFFF"] 
+node[shape=box style=filled fillcolor="#CCFFCC" fontname="helvetica"] 
+"T1.Lowland"
+"T1.Other"
+"T1.Taiwan"
+"T1.Highland"
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+"T1.Taiwan" -> "T1.Lowland" [dir=back]
+"T1.Taiwan" -> "T1.Other" [dir=back]
+"T1.Taiwan" -> "T1.Highland" [dir=back]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+"T4.Truku" -> "T4.Taiwan"
+"T4.Ketagalan" -> "T4.Taiwan"
+"T4.Sediq" -> "T4.Taiwan"
+"T4.Makatao" -> "T4.Taiwan"
+"T4.Thao" -> "T4.Taiwan"
+"T4.Babuza" -> "T4.Taiwan"
+"T4.Kavalan" -> "T4.Taiwan"
+"T4.Yami" -> "T4.Taiwan"
+"T4.Kanakanavu" -> "T4.Taiwan"
+"T4.Sakizaya" -> "T4.Taiwan"
+"T4.Siraya" -> "T4.Taiwan"
+"T4.Taokas" -> "T4.Taiwan"
+"T4.Taivoan" -> "T4.Taiwan"
+"T4.Saisiyat" -> "T4.Taiwan"
+"T4.Tsou" -> "T4.Taiwan"
+"T4.Atayal" -> "T4.Taiwan"
+"T4.Pinuyumayan" -> "T4.Taiwan"
+"T4.Paiwan" -> "T4.Taiwan"
+"T4.Hlaalua" -> "T4.Taiwan"
+"T4.Bunun" -> "T4.Taiwan"
+"T4.Hoanya" -> "T4.Taiwan"
+"T4.Pazih" -> "T4.Taiwan"
+"T4.Rukai" -> "T4.Taiwan"
+"T4.Papora" -> "T4.Taiwan"
+"T4.Kulon" -> "T4.Taiwan"
+"T4.Amis" -> "T4.Taiwan"
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=dashed color="#AA00FF" constraint=true penwidth=2 dir=both]
+"T1.Highland" -> "T4.Sediq" [label=">"]
+"T1.Taiwan" -> "T4.Taiwan" [label="="]
+"T1.Highland" -> "T4.Yami" [label=">"]
+"T1.Highland" -> "T4.Paiwan" [label="o"]
+"T1.Other" -> "T4.Taokas" [label=">"]
+"T1.Other" -> "T4.Kulon" [label=">"]
+"T1.Other" -> "T4.Pazih" [label=">"]
+"T1.Other" -> "T4.Taivoan" [label=">"]
+"T1.Other" -> "T4.Siraya" [label=">"]
+"T1.Other" -> "T4.Hoanya" [label=">"]
+"T1.Other" -> "T4.Atayal" [label="!"]
+"T1.Highland" -> "T4.Atayal" [label=">"]
+"T1.Highland" -> "T4.Saisiyat" [label="o"]
+"T1.Other" -> "T4.Paiwan" [label="!"]
+"T1.Highland" -> "T4.Hlaalua" [label=">"]
+"T1.Highland" -> "T4.Kanakanavu" [label=">"]
+"T1.Lowland" -> "T4.Thao" [label=">"]
+"T1.Highland" -> "T4.Rukai" [label=">"]
+"T1.Lowland" -> "T4.Pinuyumayan" [label=">"]
+"T1.Other" -> "T4.Babuza" [label=">"]
+"T1.Lowland" -> "T4.Amis" [label=">"]
+"T1.Lowland" -> "T4.Saisiyat" [label="o"]
+"T1.Highland" -> "T4.Tsou" [label=">"]
+"T1.Other" -> "T4.Papora" [label=">"]
+"T1.Highland" -> "T4.Truku" [label=">"]
+"T1.Other" -> "T4.Rukai" [label="!"]
+"T1.Lowland" -> "T4.Kavalan" [label=">"]
+"T1.Lowland" -> "T4.Sakizaya" [label=">"]
+"T1.Highland" -> "T4.Bunun" [label=">"]
+"T1.Other" -> "T4.Makatao" [label=">"]
+"T1.Other" -> "T4.Saisiyat" [label="!"]
+"T1.Other" -> "T4.Ketagalan" [label=">"]
+"T1.Lowland" -> "T4.Paiwan" [label="o"]
+node[shape=box] 
+{rank=source Legend [fillcolor= white margin=0 label=< 
+ <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> 
+<TR> <TD COLSPAN="2"><font face="Arial Black"> Nodes</font></TD> </TR> 
+<TR> 
+ <TD bgcolor="#FFFFCC" fontname="helvetica">T4</TD> 
+ <TD>27</TD> 
+ </TR> 
+<TR> 
+ <TD bgcolor="#CCFFCC" fontname="helvetica">T1</TD> 
+ <TD>4</TD> 
+ </TR> 
+<TR> <TD COLSPAN="2"><font face = "Arial Black"> Edges </font></TD> </TR> 
+<TR> 
+ <TD><font color ="#000000">is_a (T1)</font></TD><TD>3</TD>
+</TR>
+<TR> 
+ <TD><font color ="#000000">is_a (T4)</font></TD><TD>26</TD>
+</TR>
+<TR> 
+ <TD><font color ="#AA00FF">articulations</font></TD><TD>33</TD>
+</TR>
+</TABLE> 
+ >] } 
+}

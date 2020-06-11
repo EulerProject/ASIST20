@@ -1,0 +1,42 @@
+#Taxonomy 1 Votes https://www.matataiwan.com/2016/01/27/taiwan-single-nontransferable-vote-for-indigenous/ ; verified on:https://zh.wikipedia.org/wiki/%E5%B9%B3%E5%9C%B0%E5%8E%9F%E4%BD%8F%E6%B0%91%E9%81%B8%E8%88%89%E5%8D%80
+#Taxonomy 2 Council of Indigenous people Taiwan: http://www.twedance.org/aboriginal00.aspx 
+
+taxonomy T1 Votes
+(Taiwan Highland Lowland)
+
+taxonomy T2 CIP
+(Taiwan Amis Atayal Paiwan Bunun Tsou Rukai Pinuyumayan Saisiyat Yami Thao Kavalan Truku Sakizaya Sediq Hlaalua Kanakanavu)
+
+articulation T1-T2 CIP-Votes
+[T1.Taiwan equals T2.Taiwan]
+[T1.Lowland includes T2.Amis]
+[T1.Lowland includes T2.Pinuyumayan]
+[T1.Lowland includes T2.Sakizaya]
+[T1.Lowland includes T2.Kavalan]
+[T1.Lowland includes T2.Thao]
+[T1.Highland includes T2.Truku]
+#[T1.Lowland overlaps T2.Atayal]
+[T1.Highland includes T2.Atayal]
+[T1.Lowland overlaps T2.Paiwan]
+[T1.Highland overlaps T2.Paiwan]
+[T1.Highland includes T2.Bunun]
+[T1.Highland includes T2.Tsou]
+[T1.Highland includes T2.Hlaalua]
+[T1.Highland includes T2.Kanakanavu]
+[T1.Lowland overlaps T2.Saisiyat]
+[T1.Highland overlaps T2.Saisiyat]
+#[T1.Lowland overlaps T2.Rukai]
+[T1.Highland includes T2.Rukai]
+[T1.Highland includes T2.Sediq]
+[T1.Highland includes T2.Yami]
+
+
+
+
+
+
+
+
+
+
+

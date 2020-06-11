@@ -1,0 +1,1542 @@
+%%% Max Number of Euler Regions
+#maxint=50.
+
+%%% Euler Regions
+r(M):- #int(M),M>=1,M<=#maxint.
+
+%%% Concepts
+tax(tT2,0).
+concept2(A, B) :- concept(A,B,_).
+concept(cT2_Sediq,0,0).
+concept(cT2_Kavalan,0,1).
+concept(cT2_Hlaalua,0,2).
+concept(cT2_Kanakanavu,0,3).
+concept(cT2_Saisiyat,0,4).
+concept(cT2_Atayal,0,5).
+concept(cT2_Truku,0,6).
+concept(cT2_Yami,0,7).
+concept(cT2_Pinuyumayan,0,8).
+concept(cT2_Paiwan,0,9).
+concept(cT2_Tsou,0,10).
+concept(cT2_Rukai,0,11).
+concept2(cT2_Taiwan,0).
+concept(cT2_Bunun,0,12).
+concept(cT2_Thao,0,13).
+concept(cT2_Amis,0,14).
+concept(cT2_Sakizaya,0,15).
+tax(tT1,1).
+concept2(A, B) :- concept(A,B,_).
+concept2(cT1_Taiwan,1).
+concept(cT1_Highland,1,0).
+concept(cT1_Lowland,1,1).
+
+%%% Euler Bit
+bit(M, 0, V):-r(M),M1=M/1, #mod(M1,17,V).
+bit(M, 1, V):-r(M),M1=M/17, #mod(M1,3,V).
+
+
+%%% Meaning of regions
+in(X, M) :- r(M),concept(X,T,N),N1=N+1,bit(M,T,N1).
+out(X, M) :- r(M),concept(X,T,N),N1=N+1,not bit(M,T,N1).
+in(X, M) :- r(M),concept2(X,_),not out(X, M).
+out(X, M) :- out3(X, M, _), ix.
+irs(M) :- in(X, M), out(X, M), r(M), concept2(X,_).
+
+%%% Constraints of regions.
+irs(X) :- ir(X, _).
+vrs(X) :- vr(X, _).
+vr(X, X) :- not irs(X), r(X).
+ir(X, X) :- not vrs(X), r(X), pw.
+ie(prod(A,B)) :- vr(X, A), ir(X, B), ix.
+:- vrs(X), irs(X), pw.
+
+%%% Inconsistency Explanation.
+ie(s(R, A, Y)) :- pie(R, A, Y), not cc(R, Y), ix.
+cc(R, Y) :- c(R, _, Y), ix.
+
+%%% Parent-Child relations
+%% ISA
+% cT2_Amis isa cT2_Taiwan
+ir(X, r0) :- in(cT2_Amis, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r0,R)) :- in(cT2_Amis,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Amis,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r0, A, 1) :- ir(X, A), in(cT2_Amis, X), in(cT2_Taiwan, X), ix.
+c(r0, A, 1) :- vr(X, A), in(cT2_Amis, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Atayal isa cT2_Taiwan
+ir(X, r1) :- in(cT2_Atayal, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r1,R)) :- in(cT2_Atayal,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Atayal,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r1, A, 1) :- ir(X, A), in(cT2_Atayal, X), in(cT2_Taiwan, X), ix.
+c(r1, A, 1) :- vr(X, A), in(cT2_Atayal, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Paiwan isa cT2_Taiwan
+ir(X, r2) :- in(cT2_Paiwan, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r2,R)) :- in(cT2_Paiwan,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Paiwan,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r2, A, 1) :- ir(X, A), in(cT2_Paiwan, X), in(cT2_Taiwan, X), ix.
+c(r2, A, 1) :- vr(X, A), in(cT2_Paiwan, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Bunun isa cT2_Taiwan
+ir(X, r3) :- in(cT2_Bunun, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r3,R)) :- in(cT2_Bunun,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Bunun,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r3, A, 1) :- ir(X, A), in(cT2_Bunun, X), in(cT2_Taiwan, X), ix.
+c(r3, A, 1) :- vr(X, A), in(cT2_Bunun, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Tsou isa cT2_Taiwan
+ir(X, r4) :- in(cT2_Tsou, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r4,R)) :- in(cT2_Tsou,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Tsou,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r4, A, 1) :- ir(X, A), in(cT2_Tsou, X), in(cT2_Taiwan, X), ix.
+c(r4, A, 1) :- vr(X, A), in(cT2_Tsou, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Rukai isa cT2_Taiwan
+ir(X, r5) :- in(cT2_Rukai, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r5,R)) :- in(cT2_Rukai,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Rukai,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r5, A, 1) :- ir(X, A), in(cT2_Rukai, X), in(cT2_Taiwan, X), ix.
+c(r5, A, 1) :- vr(X, A), in(cT2_Rukai, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Pinuyumayan isa cT2_Taiwan
+ir(X, r6) :- in(cT2_Pinuyumayan, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r6,R)) :- in(cT2_Pinuyumayan,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r6, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), in(cT2_Taiwan, X), ix.
+c(r6, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Saisiyat isa cT2_Taiwan
+ir(X, r7) :- in(cT2_Saisiyat, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r7,R)) :- in(cT2_Saisiyat,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r7, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), in(cT2_Taiwan, X), ix.
+c(r7, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Yami isa cT2_Taiwan
+ir(X, r8) :- in(cT2_Yami, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r8,R)) :- in(cT2_Yami,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Yami,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r8, A, 1) :- ir(X, A), in(cT2_Yami, X), in(cT2_Taiwan, X), ix.
+c(r8, A, 1) :- vr(X, A), in(cT2_Yami, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Thao isa cT2_Taiwan
+ir(X, r9) :- in(cT2_Thao, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r9,R)) :- in(cT2_Thao,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Thao,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r9, A, 1) :- ir(X, A), in(cT2_Thao, X), in(cT2_Taiwan, X), ix.
+c(r9, A, 1) :- vr(X, A), in(cT2_Thao, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Kavalan isa cT2_Taiwan
+ir(X, r10) :- in(cT2_Kavalan, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r10,R)) :- in(cT2_Kavalan,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Kavalan,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r10, A, 1) :- ir(X, A), in(cT2_Kavalan, X), in(cT2_Taiwan, X), ix.
+c(r10, A, 1) :- vr(X, A), in(cT2_Kavalan, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Truku isa cT2_Taiwan
+ir(X, r11) :- in(cT2_Truku, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r11,R)) :- in(cT2_Truku,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Truku,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r11, A, 1) :- ir(X, A), in(cT2_Truku, X), in(cT2_Taiwan, X), ix.
+c(r11, A, 1) :- vr(X, A), in(cT2_Truku, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Sakizaya isa cT2_Taiwan
+ir(X, r12) :- in(cT2_Sakizaya, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r12,R)) :- in(cT2_Sakizaya,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Sakizaya,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r12, A, 1) :- ir(X, A), in(cT2_Sakizaya, X), in(cT2_Taiwan, X), ix.
+c(r12, A, 1) :- vr(X, A), in(cT2_Sakizaya, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Sediq isa cT2_Taiwan
+ir(X, r13) :- in(cT2_Sediq, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r13,R)) :- in(cT2_Sediq,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Sediq,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r13, A, 1) :- ir(X, A), in(cT2_Sediq, X), in(cT2_Taiwan, X), ix.
+c(r13, A, 1) :- vr(X, A), in(cT2_Sediq, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Hlaalua isa cT2_Taiwan
+ir(X, r14) :- in(cT2_Hlaalua, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r14,R)) :- in(cT2_Hlaalua,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Hlaalua,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r14, A, 1) :- ir(X, A), in(cT2_Hlaalua, X), in(cT2_Taiwan, X), ix.
+c(r14, A, 1) :- vr(X, A), in(cT2_Hlaalua, X), in(cT2_Taiwan, X), ix.
+
+% cT2_Kanakanavu isa cT2_Taiwan
+ir(X, r15) :- in(cT2_Kanakanavu, X), out(cT2_Taiwan, X), pw.
+ir(X, prod(r15,R)) :- in(cT2_Kanakanavu,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT2_Kanakanavu,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r15, A, 1) :- ir(X, A), in(cT2_Kanakanavu, X), in(cT2_Taiwan, X), ix.
+c(r15, A, 1) :- vr(X, A), in(cT2_Kanakanavu, X), in(cT2_Taiwan, X), ix.
+
+%% coverage
+out3(cT2_Taiwan, X, r16) :- out(cT2_Amis, X), out(cT2_Atayal, X), out(cT2_Paiwan, X), out(cT2_Bunun, X), out(cT2_Tsou, X), out(cT2_Rukai, X), out(cT2_Pinuyumayan, X), out(cT2_Saisiyat, X), out(cT2_Yami, X), out(cT2_Thao, X), out(cT2_Kavalan, X), out(cT2_Truku, X), out(cT2_Sakizaya, X), out(cT2_Sediq, X), out(cT2_Hlaalua, X), out(cT2_Kanakanavu, X), ix.
+out(cT2_Taiwan, X) :- out(cT2_Amis, X), out(cT2_Atayal, X), out(cT2_Paiwan, X), out(cT2_Bunun, X), out(cT2_Tsou, X), out(cT2_Rukai, X), out(cT2_Pinuyumayan, X), out(cT2_Saisiyat, X), out(cT2_Yami, X), out(cT2_Thao, X), out(cT2_Kavalan, X), out(cT2_Truku, X), out(cT2_Sakizaya, X), out(cT2_Sediq, X), out(cT2_Hlaalua, X), out(cT2_Kanakanavu, X), pw.
+%% sibling disjointness
+% cT2_Amis ! cT2_Atayal
+ir(X, r17) :- in(cT2_Amis, X), in(cT2_Atayal, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Atayal,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Atayal,X)} <= 0, pw.
+pie(r17, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Atayal, X), ix.
+c(r17, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Atayal, X), ix.
+pie(r17, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Atayal, X), ix.
+c(r17, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Atayal, X), ix.
+
+% cT2_Amis ! cT2_Paiwan
+ir(X, r18) :- in(cT2_Amis, X), in(cT2_Paiwan, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Paiwan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Paiwan,X)} <= 0, pw.
+pie(r18, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Paiwan, X), ix.
+c(r18, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Paiwan, X), ix.
+pie(r18, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Paiwan, X), ix.
+c(r18, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Paiwan, X), ix.
+
+% cT2_Amis ! cT2_Bunun
+ir(X, r19) :- in(cT2_Amis, X), in(cT2_Bunun, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Bunun,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Bunun,X)} <= 0, pw.
+pie(r19, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Bunun, X), ix.
+c(r19, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Bunun, X), ix.
+pie(r19, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Bunun, X), ix.
+c(r19, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Bunun, X), ix.
+
+% cT2_Amis ! cT2_Tsou
+ir(X, r20) :- in(cT2_Amis, X), in(cT2_Tsou, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Tsou,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Tsou,X)} <= 0, pw.
+pie(r20, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Tsou, X), ix.
+c(r20, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Tsou, X), ix.
+pie(r20, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Tsou, X), ix.
+c(r20, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Tsou, X), ix.
+
+% cT2_Amis ! cT2_Rukai
+ir(X, r21) :- in(cT2_Amis, X), in(cT2_Rukai, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Rukai,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Rukai,X)} <= 0, pw.
+pie(r21, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Rukai, X), ix.
+c(r21, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Rukai, X), ix.
+pie(r21, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Rukai, X), ix.
+c(r21, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Rukai, X), ix.
+
+% cT2_Amis ! cT2_Pinuyumayan
+ir(X, r22) :- in(cT2_Amis, X), in(cT2_Pinuyumayan, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Pinuyumayan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Pinuyumayan,X)} <= 0, pw.
+pie(r22, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Pinuyumayan, X), ix.
+c(r22, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Pinuyumayan, X), ix.
+pie(r22, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Pinuyumayan, X), ix.
+c(r22, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Pinuyumayan, X), ix.
+
+% cT2_Amis ! cT2_Saisiyat
+ir(X, r23) :- in(cT2_Amis, X), in(cT2_Saisiyat, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Saisiyat,X)} <= 0, pw.
+pie(r23, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Saisiyat, X), ix.
+c(r23, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Saisiyat, X), ix.
+pie(r23, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Saisiyat, X), ix.
+c(r23, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Saisiyat, X), ix.
+
+% cT2_Amis ! cT2_Yami
+ir(X, r24) :- in(cT2_Amis, X), in(cT2_Yami, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Yami,X)} <= 0, pw.
+pie(r24, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Yami, X), ix.
+c(r24, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Yami, X), ix.
+pie(r24, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Yami, X), ix.
+c(r24, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Yami, X), ix.
+
+% cT2_Amis ! cT2_Thao
+ir(X, r25) :- in(cT2_Amis, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r25, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Thao, X), ix.
+c(r25, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Thao, X), ix.
+pie(r25, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Thao, X), ix.
+c(r25, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Thao, X), ix.
+
+% cT2_Amis ! cT2_Kavalan
+ir(X, r26) :- in(cT2_Amis, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r26, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Kavalan, X), ix.
+c(r26, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Kavalan, X), ix.
+pie(r26, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Kavalan, X), ix.
+c(r26, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Amis ! cT2_Truku
+ir(X, r27) :- in(cT2_Amis, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r27, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Truku, X), ix.
+c(r27, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Truku, X), ix.
+pie(r27, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Truku, X), ix.
+c(r27, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Truku, X), ix.
+
+% cT2_Amis ! cT2_Sakizaya
+ir(X, r28) :- in(cT2_Amis, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r28, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Sakizaya, X), ix.
+c(r28, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Sakizaya, X), ix.
+pie(r28, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Sakizaya, X), ix.
+c(r28, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Amis ! cT2_Sediq
+ir(X, r29) :- in(cT2_Amis, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r29, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Sediq, X), ix.
+c(r29, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Sediq, X), ix.
+pie(r29, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Sediq, X), ix.
+c(r29, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Sediq, X), ix.
+
+% cT2_Amis ! cT2_Hlaalua
+ir(X, r30) :- in(cT2_Amis, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r30, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Hlaalua, X), ix.
+c(r30, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Hlaalua, X), ix.
+pie(r30, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Hlaalua, X), ix.
+c(r30, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Amis ! cT2_Kanakanavu
+ir(X, r31) :- in(cT2_Amis, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Amis,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Amis,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r31, A, 1) :- ir(X, A), in(cT2_Amis, X), out(cT2_Kanakanavu, X), ix.
+c(r31, A, 1) :- vr(X, A), in(cT2_Amis, X), out(cT2_Kanakanavu, X), ix.
+pie(r31, A, 2) :- ir(X, A), out(cT2_Amis, X), in(cT2_Kanakanavu, X), ix.
+c(r31, A, 2) :- vr(X, A), out(cT2_Amis, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Atayal ! cT2_Paiwan
+ir(X, r32) :- in(cT2_Atayal, X), in(cT2_Paiwan, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Paiwan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Paiwan,X)} <= 0, pw.
+pie(r32, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Paiwan, X), ix.
+c(r32, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Paiwan, X), ix.
+pie(r32, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Paiwan, X), ix.
+c(r32, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Paiwan, X), ix.
+
+% cT2_Atayal ! cT2_Bunun
+ir(X, r33) :- in(cT2_Atayal, X), in(cT2_Bunun, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Bunun,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Bunun,X)} <= 0, pw.
+pie(r33, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Bunun, X), ix.
+c(r33, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Bunun, X), ix.
+pie(r33, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Bunun, X), ix.
+c(r33, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Bunun, X), ix.
+
+% cT2_Atayal ! cT2_Tsou
+ir(X, r34) :- in(cT2_Atayal, X), in(cT2_Tsou, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Tsou,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Tsou,X)} <= 0, pw.
+pie(r34, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Tsou, X), ix.
+c(r34, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Tsou, X), ix.
+pie(r34, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Tsou, X), ix.
+c(r34, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Tsou, X), ix.
+
+% cT2_Atayal ! cT2_Rukai
+ir(X, r35) :- in(cT2_Atayal, X), in(cT2_Rukai, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Rukai,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Rukai,X)} <= 0, pw.
+pie(r35, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Rukai, X), ix.
+c(r35, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Rukai, X), ix.
+pie(r35, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Rukai, X), ix.
+c(r35, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Rukai, X), ix.
+
+% cT2_Atayal ! cT2_Pinuyumayan
+ir(X, r36) :- in(cT2_Atayal, X), in(cT2_Pinuyumayan, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Pinuyumayan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Pinuyumayan,X)} <= 0, pw.
+pie(r36, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Pinuyumayan, X), ix.
+c(r36, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Pinuyumayan, X), ix.
+pie(r36, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Pinuyumayan, X), ix.
+c(r36, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Pinuyumayan, X), ix.
+
+% cT2_Atayal ! cT2_Saisiyat
+ir(X, r37) :- in(cT2_Atayal, X), in(cT2_Saisiyat, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Saisiyat,X)} <= 0, pw.
+pie(r37, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Saisiyat, X), ix.
+c(r37, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Saisiyat, X), ix.
+pie(r37, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Saisiyat, X), ix.
+c(r37, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Saisiyat, X), ix.
+
+% cT2_Atayal ! cT2_Yami
+ir(X, r38) :- in(cT2_Atayal, X), in(cT2_Yami, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Yami,X)} <= 0, pw.
+pie(r38, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Yami, X), ix.
+c(r38, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Yami, X), ix.
+pie(r38, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Yami, X), ix.
+c(r38, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Yami, X), ix.
+
+% cT2_Atayal ! cT2_Thao
+ir(X, r39) :- in(cT2_Atayal, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r39, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Thao, X), ix.
+c(r39, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Thao, X), ix.
+pie(r39, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Thao, X), ix.
+c(r39, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Thao, X), ix.
+
+% cT2_Atayal ! cT2_Kavalan
+ir(X, r40) :- in(cT2_Atayal, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r40, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Kavalan, X), ix.
+c(r40, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Kavalan, X), ix.
+pie(r40, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Kavalan, X), ix.
+c(r40, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Atayal ! cT2_Truku
+ir(X, r41) :- in(cT2_Atayal, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r41, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Truku, X), ix.
+c(r41, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Truku, X), ix.
+pie(r41, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Truku, X), ix.
+c(r41, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Truku, X), ix.
+
+% cT2_Atayal ! cT2_Sakizaya
+ir(X, r42) :- in(cT2_Atayal, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r42, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Sakizaya, X), ix.
+c(r42, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Sakizaya, X), ix.
+pie(r42, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Sakizaya, X), ix.
+c(r42, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Atayal ! cT2_Sediq
+ir(X, r43) :- in(cT2_Atayal, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r43, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Sediq, X), ix.
+c(r43, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Sediq, X), ix.
+pie(r43, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Sediq, X), ix.
+c(r43, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Sediq, X), ix.
+
+% cT2_Atayal ! cT2_Hlaalua
+ir(X, r44) :- in(cT2_Atayal, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r44, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Hlaalua, X), ix.
+c(r44, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Hlaalua, X), ix.
+pie(r44, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Hlaalua, X), ix.
+c(r44, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Atayal ! cT2_Kanakanavu
+ir(X, r45) :- in(cT2_Atayal, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Atayal,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Atayal,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r45, A, 1) :- ir(X, A), in(cT2_Atayal, X), out(cT2_Kanakanavu, X), ix.
+c(r45, A, 1) :- vr(X, A), in(cT2_Atayal, X), out(cT2_Kanakanavu, X), ix.
+pie(r45, A, 2) :- ir(X, A), out(cT2_Atayal, X), in(cT2_Kanakanavu, X), ix.
+c(r45, A, 2) :- vr(X, A), out(cT2_Atayal, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Paiwan ! cT2_Bunun
+ir(X, r46) :- in(cT2_Paiwan, X), in(cT2_Bunun, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Bunun,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Bunun,X)} <= 0, pw.
+pie(r46, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Bunun, X), ix.
+c(r46, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Bunun, X), ix.
+pie(r46, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Bunun, X), ix.
+c(r46, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Bunun, X), ix.
+
+% cT2_Paiwan ! cT2_Tsou
+ir(X, r47) :- in(cT2_Paiwan, X), in(cT2_Tsou, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Tsou,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Tsou,X)} <= 0, pw.
+pie(r47, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Tsou, X), ix.
+c(r47, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Tsou, X), ix.
+pie(r47, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Tsou, X), ix.
+c(r47, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Tsou, X), ix.
+
+% cT2_Paiwan ! cT2_Rukai
+ir(X, r48) :- in(cT2_Paiwan, X), in(cT2_Rukai, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Rukai,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Rukai,X)} <= 0, pw.
+pie(r48, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Rukai, X), ix.
+c(r48, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Rukai, X), ix.
+pie(r48, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Rukai, X), ix.
+c(r48, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Rukai, X), ix.
+
+% cT2_Paiwan ! cT2_Pinuyumayan
+ir(X, r49) :- in(cT2_Paiwan, X), in(cT2_Pinuyumayan, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Pinuyumayan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Pinuyumayan,X)} <= 0, pw.
+pie(r49, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Pinuyumayan, X), ix.
+c(r49, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Pinuyumayan, X), ix.
+pie(r49, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Pinuyumayan, X), ix.
+c(r49, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Pinuyumayan, X), ix.
+
+% cT2_Paiwan ! cT2_Saisiyat
+ir(X, r50) :- in(cT2_Paiwan, X), in(cT2_Saisiyat, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Saisiyat,X)} <= 0, pw.
+pie(r50, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Saisiyat, X), ix.
+c(r50, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Saisiyat, X), ix.
+pie(r50, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Saisiyat, X), ix.
+c(r50, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Saisiyat, X), ix.
+
+% cT2_Paiwan ! cT2_Yami
+ir(X, r51) :- in(cT2_Paiwan, X), in(cT2_Yami, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Yami,X)} <= 0, pw.
+pie(r51, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Yami, X), ix.
+c(r51, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Yami, X), ix.
+pie(r51, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Yami, X), ix.
+c(r51, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Yami, X), ix.
+
+% cT2_Paiwan ! cT2_Thao
+ir(X, r52) :- in(cT2_Paiwan, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r52, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Thao, X), ix.
+c(r52, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Thao, X), ix.
+pie(r52, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Thao, X), ix.
+c(r52, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Thao, X), ix.
+
+% cT2_Paiwan ! cT2_Kavalan
+ir(X, r53) :- in(cT2_Paiwan, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r53, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Kavalan, X), ix.
+c(r53, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Kavalan, X), ix.
+pie(r53, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Kavalan, X), ix.
+c(r53, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Paiwan ! cT2_Truku
+ir(X, r54) :- in(cT2_Paiwan, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r54, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Truku, X), ix.
+c(r54, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Truku, X), ix.
+pie(r54, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Truku, X), ix.
+c(r54, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Truku, X), ix.
+
+% cT2_Paiwan ! cT2_Sakizaya
+ir(X, r55) :- in(cT2_Paiwan, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r55, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Sakizaya, X), ix.
+c(r55, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Sakizaya, X), ix.
+pie(r55, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Sakizaya, X), ix.
+c(r55, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Paiwan ! cT2_Sediq
+ir(X, r56) :- in(cT2_Paiwan, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r56, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Sediq, X), ix.
+c(r56, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Sediq, X), ix.
+pie(r56, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Sediq, X), ix.
+c(r56, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Sediq, X), ix.
+
+% cT2_Paiwan ! cT2_Hlaalua
+ir(X, r57) :- in(cT2_Paiwan, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r57, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Hlaalua, X), ix.
+c(r57, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Hlaalua, X), ix.
+pie(r57, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Hlaalua, X), ix.
+c(r57, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Paiwan ! cT2_Kanakanavu
+ir(X, r58) :- in(cT2_Paiwan, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Paiwan,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Paiwan,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r58, A, 1) :- ir(X, A), in(cT2_Paiwan, X), out(cT2_Kanakanavu, X), ix.
+c(r58, A, 1) :- vr(X, A), in(cT2_Paiwan, X), out(cT2_Kanakanavu, X), ix.
+pie(r58, A, 2) :- ir(X, A), out(cT2_Paiwan, X), in(cT2_Kanakanavu, X), ix.
+c(r58, A, 2) :- vr(X, A), out(cT2_Paiwan, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Bunun ! cT2_Tsou
+ir(X, r59) :- in(cT2_Bunun, X), in(cT2_Tsou, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Tsou,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Tsou,X)} <= 0, pw.
+pie(r59, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Tsou, X), ix.
+c(r59, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Tsou, X), ix.
+pie(r59, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Tsou, X), ix.
+c(r59, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Tsou, X), ix.
+
+% cT2_Bunun ! cT2_Rukai
+ir(X, r60) :- in(cT2_Bunun, X), in(cT2_Rukai, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Rukai,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Rukai,X)} <= 0, pw.
+pie(r60, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Rukai, X), ix.
+c(r60, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Rukai, X), ix.
+pie(r60, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Rukai, X), ix.
+c(r60, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Rukai, X), ix.
+
+% cT2_Bunun ! cT2_Pinuyumayan
+ir(X, r61) :- in(cT2_Bunun, X), in(cT2_Pinuyumayan, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Pinuyumayan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Pinuyumayan,X)} <= 0, pw.
+pie(r61, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Pinuyumayan, X), ix.
+c(r61, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Pinuyumayan, X), ix.
+pie(r61, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Pinuyumayan, X), ix.
+c(r61, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Pinuyumayan, X), ix.
+
+% cT2_Bunun ! cT2_Saisiyat
+ir(X, r62) :- in(cT2_Bunun, X), in(cT2_Saisiyat, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Saisiyat,X)} <= 0, pw.
+pie(r62, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Saisiyat, X), ix.
+c(r62, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Saisiyat, X), ix.
+pie(r62, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Saisiyat, X), ix.
+c(r62, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Saisiyat, X), ix.
+
+% cT2_Bunun ! cT2_Yami
+ir(X, r63) :- in(cT2_Bunun, X), in(cT2_Yami, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Yami,X)} <= 0, pw.
+pie(r63, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Yami, X), ix.
+c(r63, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Yami, X), ix.
+pie(r63, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Yami, X), ix.
+c(r63, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Yami, X), ix.
+
+% cT2_Bunun ! cT2_Thao
+ir(X, r64) :- in(cT2_Bunun, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r64, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Thao, X), ix.
+c(r64, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Thao, X), ix.
+pie(r64, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Thao, X), ix.
+c(r64, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Thao, X), ix.
+
+% cT2_Bunun ! cT2_Kavalan
+ir(X, r65) :- in(cT2_Bunun, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r65, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Kavalan, X), ix.
+c(r65, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Kavalan, X), ix.
+pie(r65, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Kavalan, X), ix.
+c(r65, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Bunun ! cT2_Truku
+ir(X, r66) :- in(cT2_Bunun, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r66, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Truku, X), ix.
+c(r66, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Truku, X), ix.
+pie(r66, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Truku, X), ix.
+c(r66, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Truku, X), ix.
+
+% cT2_Bunun ! cT2_Sakizaya
+ir(X, r67) :- in(cT2_Bunun, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r67, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Sakizaya, X), ix.
+c(r67, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Sakizaya, X), ix.
+pie(r67, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Sakizaya, X), ix.
+c(r67, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Bunun ! cT2_Sediq
+ir(X, r68) :- in(cT2_Bunun, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r68, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Sediq, X), ix.
+c(r68, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Sediq, X), ix.
+pie(r68, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Sediq, X), ix.
+c(r68, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Sediq, X), ix.
+
+% cT2_Bunun ! cT2_Hlaalua
+ir(X, r69) :- in(cT2_Bunun, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r69, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Hlaalua, X), ix.
+c(r69, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Hlaalua, X), ix.
+pie(r69, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Hlaalua, X), ix.
+c(r69, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Bunun ! cT2_Kanakanavu
+ir(X, r70) :- in(cT2_Bunun, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Bunun,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Bunun,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r70, A, 1) :- ir(X, A), in(cT2_Bunun, X), out(cT2_Kanakanavu, X), ix.
+c(r70, A, 1) :- vr(X, A), in(cT2_Bunun, X), out(cT2_Kanakanavu, X), ix.
+pie(r70, A, 2) :- ir(X, A), out(cT2_Bunun, X), in(cT2_Kanakanavu, X), ix.
+c(r70, A, 2) :- vr(X, A), out(cT2_Bunun, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Tsou ! cT2_Rukai
+ir(X, r71) :- in(cT2_Tsou, X), in(cT2_Rukai, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Rukai,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Rukai,X)} <= 0, pw.
+pie(r71, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Rukai, X), ix.
+c(r71, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Rukai, X), ix.
+pie(r71, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Rukai, X), ix.
+c(r71, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Rukai, X), ix.
+
+% cT2_Tsou ! cT2_Pinuyumayan
+ir(X, r72) :- in(cT2_Tsou, X), in(cT2_Pinuyumayan, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Pinuyumayan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Pinuyumayan,X)} <= 0, pw.
+pie(r72, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Pinuyumayan, X), ix.
+c(r72, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Pinuyumayan, X), ix.
+pie(r72, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Pinuyumayan, X), ix.
+c(r72, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Pinuyumayan, X), ix.
+
+% cT2_Tsou ! cT2_Saisiyat
+ir(X, r73) :- in(cT2_Tsou, X), in(cT2_Saisiyat, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Saisiyat,X)} <= 0, pw.
+pie(r73, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Saisiyat, X), ix.
+c(r73, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Saisiyat, X), ix.
+pie(r73, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Saisiyat, X), ix.
+c(r73, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Saisiyat, X), ix.
+
+% cT2_Tsou ! cT2_Yami
+ir(X, r74) :- in(cT2_Tsou, X), in(cT2_Yami, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Yami,X)} <= 0, pw.
+pie(r74, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Yami, X), ix.
+c(r74, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Yami, X), ix.
+pie(r74, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Yami, X), ix.
+c(r74, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Yami, X), ix.
+
+% cT2_Tsou ! cT2_Thao
+ir(X, r75) :- in(cT2_Tsou, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r75, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Thao, X), ix.
+c(r75, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Thao, X), ix.
+pie(r75, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Thao, X), ix.
+c(r75, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Thao, X), ix.
+
+% cT2_Tsou ! cT2_Kavalan
+ir(X, r76) :- in(cT2_Tsou, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r76, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Kavalan, X), ix.
+c(r76, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Kavalan, X), ix.
+pie(r76, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Kavalan, X), ix.
+c(r76, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Tsou ! cT2_Truku
+ir(X, r77) :- in(cT2_Tsou, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r77, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Truku, X), ix.
+c(r77, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Truku, X), ix.
+pie(r77, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Truku, X), ix.
+c(r77, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Truku, X), ix.
+
+% cT2_Tsou ! cT2_Sakizaya
+ir(X, r78) :- in(cT2_Tsou, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r78, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Sakizaya, X), ix.
+c(r78, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Sakizaya, X), ix.
+pie(r78, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Sakizaya, X), ix.
+c(r78, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Tsou ! cT2_Sediq
+ir(X, r79) :- in(cT2_Tsou, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r79, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Sediq, X), ix.
+c(r79, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Sediq, X), ix.
+pie(r79, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Sediq, X), ix.
+c(r79, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Sediq, X), ix.
+
+% cT2_Tsou ! cT2_Hlaalua
+ir(X, r80) :- in(cT2_Tsou, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r80, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Hlaalua, X), ix.
+c(r80, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Hlaalua, X), ix.
+pie(r80, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Hlaalua, X), ix.
+c(r80, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Tsou ! cT2_Kanakanavu
+ir(X, r81) :- in(cT2_Tsou, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Tsou,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Tsou,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r81, A, 1) :- ir(X, A), in(cT2_Tsou, X), out(cT2_Kanakanavu, X), ix.
+c(r81, A, 1) :- vr(X, A), in(cT2_Tsou, X), out(cT2_Kanakanavu, X), ix.
+pie(r81, A, 2) :- ir(X, A), out(cT2_Tsou, X), in(cT2_Kanakanavu, X), ix.
+c(r81, A, 2) :- vr(X, A), out(cT2_Tsou, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Rukai ! cT2_Pinuyumayan
+ir(X, r82) :- in(cT2_Rukai, X), in(cT2_Pinuyumayan, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Pinuyumayan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Pinuyumayan,X)} <= 0, pw.
+pie(r82, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Pinuyumayan, X), ix.
+c(r82, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Pinuyumayan, X), ix.
+pie(r82, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Pinuyumayan, X), ix.
+c(r82, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Pinuyumayan, X), ix.
+
+% cT2_Rukai ! cT2_Saisiyat
+ir(X, r83) :- in(cT2_Rukai, X), in(cT2_Saisiyat, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Saisiyat,X)} <= 0, pw.
+pie(r83, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Saisiyat, X), ix.
+c(r83, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Saisiyat, X), ix.
+pie(r83, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Saisiyat, X), ix.
+c(r83, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Saisiyat, X), ix.
+
+% cT2_Rukai ! cT2_Yami
+ir(X, r84) :- in(cT2_Rukai, X), in(cT2_Yami, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Yami,X)} <= 0, pw.
+pie(r84, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Yami, X), ix.
+c(r84, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Yami, X), ix.
+pie(r84, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Yami, X), ix.
+c(r84, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Yami, X), ix.
+
+% cT2_Rukai ! cT2_Thao
+ir(X, r85) :- in(cT2_Rukai, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r85, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Thao, X), ix.
+c(r85, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Thao, X), ix.
+pie(r85, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Thao, X), ix.
+c(r85, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Thao, X), ix.
+
+% cT2_Rukai ! cT2_Kavalan
+ir(X, r86) :- in(cT2_Rukai, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r86, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Kavalan, X), ix.
+c(r86, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Kavalan, X), ix.
+pie(r86, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Kavalan, X), ix.
+c(r86, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Rukai ! cT2_Truku
+ir(X, r87) :- in(cT2_Rukai, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r87, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Truku, X), ix.
+c(r87, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Truku, X), ix.
+pie(r87, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Truku, X), ix.
+c(r87, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Truku, X), ix.
+
+% cT2_Rukai ! cT2_Sakizaya
+ir(X, r88) :- in(cT2_Rukai, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r88, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Sakizaya, X), ix.
+c(r88, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Sakizaya, X), ix.
+pie(r88, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Sakizaya, X), ix.
+c(r88, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Rukai ! cT2_Sediq
+ir(X, r89) :- in(cT2_Rukai, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r89, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Sediq, X), ix.
+c(r89, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Sediq, X), ix.
+pie(r89, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Sediq, X), ix.
+c(r89, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Sediq, X), ix.
+
+% cT2_Rukai ! cT2_Hlaalua
+ir(X, r90) :- in(cT2_Rukai, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r90, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Hlaalua, X), ix.
+c(r90, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Hlaalua, X), ix.
+pie(r90, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Hlaalua, X), ix.
+c(r90, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Rukai ! cT2_Kanakanavu
+ir(X, r91) :- in(cT2_Rukai, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Rukai,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Rukai,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r91, A, 1) :- ir(X, A), in(cT2_Rukai, X), out(cT2_Kanakanavu, X), ix.
+c(r91, A, 1) :- vr(X, A), in(cT2_Rukai, X), out(cT2_Kanakanavu, X), ix.
+pie(r91, A, 2) :- ir(X, A), out(cT2_Rukai, X), in(cT2_Kanakanavu, X), ix.
+c(r91, A, 2) :- vr(X, A), out(cT2_Rukai, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Saisiyat
+ir(X, r92) :- in(cT2_Pinuyumayan, X), in(cT2_Saisiyat, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Saisiyat,X)} <= 0, pw.
+pie(r92, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Saisiyat, X), ix.
+c(r92, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Saisiyat, X), ix.
+pie(r92, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Saisiyat, X), ix.
+c(r92, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Saisiyat, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Yami
+ir(X, r93) :- in(cT2_Pinuyumayan, X), in(cT2_Yami, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Yami,X)} <= 0, pw.
+pie(r93, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Yami, X), ix.
+c(r93, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Yami, X), ix.
+pie(r93, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Yami, X), ix.
+c(r93, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Yami, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Thao
+ir(X, r94) :- in(cT2_Pinuyumayan, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r94, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Thao, X), ix.
+c(r94, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Thao, X), ix.
+pie(r94, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Thao, X), ix.
+c(r94, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Thao, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Kavalan
+ir(X, r95) :- in(cT2_Pinuyumayan, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r95, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Kavalan, X), ix.
+c(r95, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Kavalan, X), ix.
+pie(r95, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Kavalan, X), ix.
+c(r95, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Truku
+ir(X, r96) :- in(cT2_Pinuyumayan, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r96, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Truku, X), ix.
+c(r96, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Truku, X), ix.
+pie(r96, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Truku, X), ix.
+c(r96, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Truku, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Sakizaya
+ir(X, r97) :- in(cT2_Pinuyumayan, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r97, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Sakizaya, X), ix.
+c(r97, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Sakizaya, X), ix.
+pie(r97, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Sakizaya, X), ix.
+c(r97, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Sediq
+ir(X, r98) :- in(cT2_Pinuyumayan, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r98, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Sediq, X), ix.
+c(r98, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Sediq, X), ix.
+pie(r98, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Sediq, X), ix.
+c(r98, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Sediq, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Hlaalua
+ir(X, r99) :- in(cT2_Pinuyumayan, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r99, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Hlaalua, X), ix.
+c(r99, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Hlaalua, X), ix.
+pie(r99, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Hlaalua, X), ix.
+c(r99, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Pinuyumayan ! cT2_Kanakanavu
+ir(X, r100) :- in(cT2_Pinuyumayan, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Pinuyumayan,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Pinuyumayan,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r100, A, 1) :- ir(X, A), in(cT2_Pinuyumayan, X), out(cT2_Kanakanavu, X), ix.
+c(r100, A, 1) :- vr(X, A), in(cT2_Pinuyumayan, X), out(cT2_Kanakanavu, X), ix.
+pie(r100, A, 2) :- ir(X, A), out(cT2_Pinuyumayan, X), in(cT2_Kanakanavu, X), ix.
+c(r100, A, 2) :- vr(X, A), out(cT2_Pinuyumayan, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Saisiyat ! cT2_Yami
+ir(X, r101) :- in(cT2_Saisiyat, X), in(cT2_Yami, X).
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), out(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Saisiyat,X), in(cT2_Yami,X)} <= 0, pw.
+pie(r101, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), out(cT2_Yami, X), ix.
+c(r101, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), out(cT2_Yami, X), ix.
+pie(r101, A, 2) :- ir(X, A), out(cT2_Saisiyat, X), in(cT2_Yami, X), ix.
+c(r101, A, 2) :- vr(X, A), out(cT2_Saisiyat, X), in(cT2_Yami, X), ix.
+
+% cT2_Saisiyat ! cT2_Thao
+ir(X, r102) :- in(cT2_Saisiyat, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Saisiyat,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r102, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), out(cT2_Thao, X), ix.
+c(r102, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), out(cT2_Thao, X), ix.
+pie(r102, A, 2) :- ir(X, A), out(cT2_Saisiyat, X), in(cT2_Thao, X), ix.
+c(r102, A, 2) :- vr(X, A), out(cT2_Saisiyat, X), in(cT2_Thao, X), ix.
+
+% cT2_Saisiyat ! cT2_Kavalan
+ir(X, r103) :- in(cT2_Saisiyat, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Saisiyat,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r103, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), out(cT2_Kavalan, X), ix.
+c(r103, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), out(cT2_Kavalan, X), ix.
+pie(r103, A, 2) :- ir(X, A), out(cT2_Saisiyat, X), in(cT2_Kavalan, X), ix.
+c(r103, A, 2) :- vr(X, A), out(cT2_Saisiyat, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Saisiyat ! cT2_Truku
+ir(X, r104) :- in(cT2_Saisiyat, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Saisiyat,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r104, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), out(cT2_Truku, X), ix.
+c(r104, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), out(cT2_Truku, X), ix.
+pie(r104, A, 2) :- ir(X, A), out(cT2_Saisiyat, X), in(cT2_Truku, X), ix.
+c(r104, A, 2) :- vr(X, A), out(cT2_Saisiyat, X), in(cT2_Truku, X), ix.
+
+% cT2_Saisiyat ! cT2_Sakizaya
+ir(X, r105) :- in(cT2_Saisiyat, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Saisiyat,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r105, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), out(cT2_Sakizaya, X), ix.
+c(r105, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), out(cT2_Sakizaya, X), ix.
+pie(r105, A, 2) :- ir(X, A), out(cT2_Saisiyat, X), in(cT2_Sakizaya, X), ix.
+c(r105, A, 2) :- vr(X, A), out(cT2_Saisiyat, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Saisiyat ! cT2_Sediq
+ir(X, r106) :- in(cT2_Saisiyat, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Saisiyat,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r106, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), out(cT2_Sediq, X), ix.
+c(r106, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), out(cT2_Sediq, X), ix.
+pie(r106, A, 2) :- ir(X, A), out(cT2_Saisiyat, X), in(cT2_Sediq, X), ix.
+c(r106, A, 2) :- vr(X, A), out(cT2_Saisiyat, X), in(cT2_Sediq, X), ix.
+
+% cT2_Saisiyat ! cT2_Hlaalua
+ir(X, r107) :- in(cT2_Saisiyat, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Saisiyat,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r107, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), out(cT2_Hlaalua, X), ix.
+c(r107, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), out(cT2_Hlaalua, X), ix.
+pie(r107, A, 2) :- ir(X, A), out(cT2_Saisiyat, X), in(cT2_Hlaalua, X), ix.
+c(r107, A, 2) :- vr(X, A), out(cT2_Saisiyat, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Saisiyat ! cT2_Kanakanavu
+ir(X, r108) :- in(cT2_Saisiyat, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Saisiyat,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Saisiyat,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r108, A, 1) :- ir(X, A), in(cT2_Saisiyat, X), out(cT2_Kanakanavu, X), ix.
+c(r108, A, 1) :- vr(X, A), in(cT2_Saisiyat, X), out(cT2_Kanakanavu, X), ix.
+pie(r108, A, 2) :- ir(X, A), out(cT2_Saisiyat, X), in(cT2_Kanakanavu, X), ix.
+c(r108, A, 2) :- vr(X, A), out(cT2_Saisiyat, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Yami ! cT2_Thao
+ir(X, r109) :- in(cT2_Yami, X), in(cT2_Thao, X).
+:- #count {X : vrs(X), in(cT2_Yami,X), out(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Yami,X), in(cT2_Thao,X)} <= 0, pw.
+pie(r109, A, 1) :- ir(X, A), in(cT2_Yami, X), out(cT2_Thao, X), ix.
+c(r109, A, 1) :- vr(X, A), in(cT2_Yami, X), out(cT2_Thao, X), ix.
+pie(r109, A, 2) :- ir(X, A), out(cT2_Yami, X), in(cT2_Thao, X), ix.
+c(r109, A, 2) :- vr(X, A), out(cT2_Yami, X), in(cT2_Thao, X), ix.
+
+% cT2_Yami ! cT2_Kavalan
+ir(X, r110) :- in(cT2_Yami, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Yami,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Yami,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r110, A, 1) :- ir(X, A), in(cT2_Yami, X), out(cT2_Kavalan, X), ix.
+c(r110, A, 1) :- vr(X, A), in(cT2_Yami, X), out(cT2_Kavalan, X), ix.
+pie(r110, A, 2) :- ir(X, A), out(cT2_Yami, X), in(cT2_Kavalan, X), ix.
+c(r110, A, 2) :- vr(X, A), out(cT2_Yami, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Yami ! cT2_Truku
+ir(X, r111) :- in(cT2_Yami, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Yami,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Yami,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r111, A, 1) :- ir(X, A), in(cT2_Yami, X), out(cT2_Truku, X), ix.
+c(r111, A, 1) :- vr(X, A), in(cT2_Yami, X), out(cT2_Truku, X), ix.
+pie(r111, A, 2) :- ir(X, A), out(cT2_Yami, X), in(cT2_Truku, X), ix.
+c(r111, A, 2) :- vr(X, A), out(cT2_Yami, X), in(cT2_Truku, X), ix.
+
+% cT2_Yami ! cT2_Sakizaya
+ir(X, r112) :- in(cT2_Yami, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Yami,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Yami,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r112, A, 1) :- ir(X, A), in(cT2_Yami, X), out(cT2_Sakizaya, X), ix.
+c(r112, A, 1) :- vr(X, A), in(cT2_Yami, X), out(cT2_Sakizaya, X), ix.
+pie(r112, A, 2) :- ir(X, A), out(cT2_Yami, X), in(cT2_Sakizaya, X), ix.
+c(r112, A, 2) :- vr(X, A), out(cT2_Yami, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Yami ! cT2_Sediq
+ir(X, r113) :- in(cT2_Yami, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Yami,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Yami,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r113, A, 1) :- ir(X, A), in(cT2_Yami, X), out(cT2_Sediq, X), ix.
+c(r113, A, 1) :- vr(X, A), in(cT2_Yami, X), out(cT2_Sediq, X), ix.
+pie(r113, A, 2) :- ir(X, A), out(cT2_Yami, X), in(cT2_Sediq, X), ix.
+c(r113, A, 2) :- vr(X, A), out(cT2_Yami, X), in(cT2_Sediq, X), ix.
+
+% cT2_Yami ! cT2_Hlaalua
+ir(X, r114) :- in(cT2_Yami, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Yami,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Yami,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r114, A, 1) :- ir(X, A), in(cT2_Yami, X), out(cT2_Hlaalua, X), ix.
+c(r114, A, 1) :- vr(X, A), in(cT2_Yami, X), out(cT2_Hlaalua, X), ix.
+pie(r114, A, 2) :- ir(X, A), out(cT2_Yami, X), in(cT2_Hlaalua, X), ix.
+c(r114, A, 2) :- vr(X, A), out(cT2_Yami, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Yami ! cT2_Kanakanavu
+ir(X, r115) :- in(cT2_Yami, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Yami,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Yami,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r115, A, 1) :- ir(X, A), in(cT2_Yami, X), out(cT2_Kanakanavu, X), ix.
+c(r115, A, 1) :- vr(X, A), in(cT2_Yami, X), out(cT2_Kanakanavu, X), ix.
+pie(r115, A, 2) :- ir(X, A), out(cT2_Yami, X), in(cT2_Kanakanavu, X), ix.
+c(r115, A, 2) :- vr(X, A), out(cT2_Yami, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Thao ! cT2_Kavalan
+ir(X, r116) :- in(cT2_Thao, X), in(cT2_Kavalan, X).
+:- #count {X : vrs(X), in(cT2_Thao,X), out(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Thao,X), in(cT2_Kavalan,X)} <= 0, pw.
+pie(r116, A, 1) :- ir(X, A), in(cT2_Thao, X), out(cT2_Kavalan, X), ix.
+c(r116, A, 1) :- vr(X, A), in(cT2_Thao, X), out(cT2_Kavalan, X), ix.
+pie(r116, A, 2) :- ir(X, A), out(cT2_Thao, X), in(cT2_Kavalan, X), ix.
+c(r116, A, 2) :- vr(X, A), out(cT2_Thao, X), in(cT2_Kavalan, X), ix.
+
+% cT2_Thao ! cT2_Truku
+ir(X, r117) :- in(cT2_Thao, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Thao,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Thao,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r117, A, 1) :- ir(X, A), in(cT2_Thao, X), out(cT2_Truku, X), ix.
+c(r117, A, 1) :- vr(X, A), in(cT2_Thao, X), out(cT2_Truku, X), ix.
+pie(r117, A, 2) :- ir(X, A), out(cT2_Thao, X), in(cT2_Truku, X), ix.
+c(r117, A, 2) :- vr(X, A), out(cT2_Thao, X), in(cT2_Truku, X), ix.
+
+% cT2_Thao ! cT2_Sakizaya
+ir(X, r118) :- in(cT2_Thao, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Thao,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Thao,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r118, A, 1) :- ir(X, A), in(cT2_Thao, X), out(cT2_Sakizaya, X), ix.
+c(r118, A, 1) :- vr(X, A), in(cT2_Thao, X), out(cT2_Sakizaya, X), ix.
+pie(r118, A, 2) :- ir(X, A), out(cT2_Thao, X), in(cT2_Sakizaya, X), ix.
+c(r118, A, 2) :- vr(X, A), out(cT2_Thao, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Thao ! cT2_Sediq
+ir(X, r119) :- in(cT2_Thao, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Thao,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Thao,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r119, A, 1) :- ir(X, A), in(cT2_Thao, X), out(cT2_Sediq, X), ix.
+c(r119, A, 1) :- vr(X, A), in(cT2_Thao, X), out(cT2_Sediq, X), ix.
+pie(r119, A, 2) :- ir(X, A), out(cT2_Thao, X), in(cT2_Sediq, X), ix.
+c(r119, A, 2) :- vr(X, A), out(cT2_Thao, X), in(cT2_Sediq, X), ix.
+
+% cT2_Thao ! cT2_Hlaalua
+ir(X, r120) :- in(cT2_Thao, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Thao,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Thao,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r120, A, 1) :- ir(X, A), in(cT2_Thao, X), out(cT2_Hlaalua, X), ix.
+c(r120, A, 1) :- vr(X, A), in(cT2_Thao, X), out(cT2_Hlaalua, X), ix.
+pie(r120, A, 2) :- ir(X, A), out(cT2_Thao, X), in(cT2_Hlaalua, X), ix.
+c(r120, A, 2) :- vr(X, A), out(cT2_Thao, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Thao ! cT2_Kanakanavu
+ir(X, r121) :- in(cT2_Thao, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Thao,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Thao,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r121, A, 1) :- ir(X, A), in(cT2_Thao, X), out(cT2_Kanakanavu, X), ix.
+c(r121, A, 1) :- vr(X, A), in(cT2_Thao, X), out(cT2_Kanakanavu, X), ix.
+pie(r121, A, 2) :- ir(X, A), out(cT2_Thao, X), in(cT2_Kanakanavu, X), ix.
+c(r121, A, 2) :- vr(X, A), out(cT2_Thao, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Kavalan ! cT2_Truku
+ir(X, r122) :- in(cT2_Kavalan, X), in(cT2_Truku, X).
+:- #count {X : vrs(X), in(cT2_Kavalan,X), out(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Kavalan,X), in(cT2_Truku,X)} <= 0, pw.
+pie(r122, A, 1) :- ir(X, A), in(cT2_Kavalan, X), out(cT2_Truku, X), ix.
+c(r122, A, 1) :- vr(X, A), in(cT2_Kavalan, X), out(cT2_Truku, X), ix.
+pie(r122, A, 2) :- ir(X, A), out(cT2_Kavalan, X), in(cT2_Truku, X), ix.
+c(r122, A, 2) :- vr(X, A), out(cT2_Kavalan, X), in(cT2_Truku, X), ix.
+
+% cT2_Kavalan ! cT2_Sakizaya
+ir(X, r123) :- in(cT2_Kavalan, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Kavalan,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Kavalan,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r123, A, 1) :- ir(X, A), in(cT2_Kavalan, X), out(cT2_Sakizaya, X), ix.
+c(r123, A, 1) :- vr(X, A), in(cT2_Kavalan, X), out(cT2_Sakizaya, X), ix.
+pie(r123, A, 2) :- ir(X, A), out(cT2_Kavalan, X), in(cT2_Sakizaya, X), ix.
+c(r123, A, 2) :- vr(X, A), out(cT2_Kavalan, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Kavalan ! cT2_Sediq
+ir(X, r124) :- in(cT2_Kavalan, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Kavalan,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Kavalan,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r124, A, 1) :- ir(X, A), in(cT2_Kavalan, X), out(cT2_Sediq, X), ix.
+c(r124, A, 1) :- vr(X, A), in(cT2_Kavalan, X), out(cT2_Sediq, X), ix.
+pie(r124, A, 2) :- ir(X, A), out(cT2_Kavalan, X), in(cT2_Sediq, X), ix.
+c(r124, A, 2) :- vr(X, A), out(cT2_Kavalan, X), in(cT2_Sediq, X), ix.
+
+% cT2_Kavalan ! cT2_Hlaalua
+ir(X, r125) :- in(cT2_Kavalan, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Kavalan,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Kavalan,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r125, A, 1) :- ir(X, A), in(cT2_Kavalan, X), out(cT2_Hlaalua, X), ix.
+c(r125, A, 1) :- vr(X, A), in(cT2_Kavalan, X), out(cT2_Hlaalua, X), ix.
+pie(r125, A, 2) :- ir(X, A), out(cT2_Kavalan, X), in(cT2_Hlaalua, X), ix.
+c(r125, A, 2) :- vr(X, A), out(cT2_Kavalan, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Kavalan ! cT2_Kanakanavu
+ir(X, r126) :- in(cT2_Kavalan, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Kavalan,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Kavalan,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r126, A, 1) :- ir(X, A), in(cT2_Kavalan, X), out(cT2_Kanakanavu, X), ix.
+c(r126, A, 1) :- vr(X, A), in(cT2_Kavalan, X), out(cT2_Kanakanavu, X), ix.
+pie(r126, A, 2) :- ir(X, A), out(cT2_Kavalan, X), in(cT2_Kanakanavu, X), ix.
+c(r126, A, 2) :- vr(X, A), out(cT2_Kavalan, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Truku ! cT2_Sakizaya
+ir(X, r127) :- in(cT2_Truku, X), in(cT2_Sakizaya, X).
+:- #count {X : vrs(X), in(cT2_Truku,X), out(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Truku,X), in(cT2_Sakizaya,X)} <= 0, pw.
+pie(r127, A, 1) :- ir(X, A), in(cT2_Truku, X), out(cT2_Sakizaya, X), ix.
+c(r127, A, 1) :- vr(X, A), in(cT2_Truku, X), out(cT2_Sakizaya, X), ix.
+pie(r127, A, 2) :- ir(X, A), out(cT2_Truku, X), in(cT2_Sakizaya, X), ix.
+c(r127, A, 2) :- vr(X, A), out(cT2_Truku, X), in(cT2_Sakizaya, X), ix.
+
+% cT2_Truku ! cT2_Sediq
+ir(X, r128) :- in(cT2_Truku, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Truku,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Truku,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r128, A, 1) :- ir(X, A), in(cT2_Truku, X), out(cT2_Sediq, X), ix.
+c(r128, A, 1) :- vr(X, A), in(cT2_Truku, X), out(cT2_Sediq, X), ix.
+pie(r128, A, 2) :- ir(X, A), out(cT2_Truku, X), in(cT2_Sediq, X), ix.
+c(r128, A, 2) :- vr(X, A), out(cT2_Truku, X), in(cT2_Sediq, X), ix.
+
+% cT2_Truku ! cT2_Hlaalua
+ir(X, r129) :- in(cT2_Truku, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Truku,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Truku,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r129, A, 1) :- ir(X, A), in(cT2_Truku, X), out(cT2_Hlaalua, X), ix.
+c(r129, A, 1) :- vr(X, A), in(cT2_Truku, X), out(cT2_Hlaalua, X), ix.
+pie(r129, A, 2) :- ir(X, A), out(cT2_Truku, X), in(cT2_Hlaalua, X), ix.
+c(r129, A, 2) :- vr(X, A), out(cT2_Truku, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Truku ! cT2_Kanakanavu
+ir(X, r130) :- in(cT2_Truku, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Truku,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Truku,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r130, A, 1) :- ir(X, A), in(cT2_Truku, X), out(cT2_Kanakanavu, X), ix.
+c(r130, A, 1) :- vr(X, A), in(cT2_Truku, X), out(cT2_Kanakanavu, X), ix.
+pie(r130, A, 2) :- ir(X, A), out(cT2_Truku, X), in(cT2_Kanakanavu, X), ix.
+c(r130, A, 2) :- vr(X, A), out(cT2_Truku, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Sakizaya ! cT2_Sediq
+ir(X, r131) :- in(cT2_Sakizaya, X), in(cT2_Sediq, X).
+:- #count {X : vrs(X), in(cT2_Sakizaya,X), out(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Sakizaya,X), in(cT2_Sediq,X)} <= 0, pw.
+pie(r131, A, 1) :- ir(X, A), in(cT2_Sakizaya, X), out(cT2_Sediq, X), ix.
+c(r131, A, 1) :- vr(X, A), in(cT2_Sakizaya, X), out(cT2_Sediq, X), ix.
+pie(r131, A, 2) :- ir(X, A), out(cT2_Sakizaya, X), in(cT2_Sediq, X), ix.
+c(r131, A, 2) :- vr(X, A), out(cT2_Sakizaya, X), in(cT2_Sediq, X), ix.
+
+% cT2_Sakizaya ! cT2_Hlaalua
+ir(X, r132) :- in(cT2_Sakizaya, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Sakizaya,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Sakizaya,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r132, A, 1) :- ir(X, A), in(cT2_Sakizaya, X), out(cT2_Hlaalua, X), ix.
+c(r132, A, 1) :- vr(X, A), in(cT2_Sakizaya, X), out(cT2_Hlaalua, X), ix.
+pie(r132, A, 2) :- ir(X, A), out(cT2_Sakizaya, X), in(cT2_Hlaalua, X), ix.
+c(r132, A, 2) :- vr(X, A), out(cT2_Sakizaya, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Sakizaya ! cT2_Kanakanavu
+ir(X, r133) :- in(cT2_Sakizaya, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Sakizaya,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Sakizaya,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r133, A, 1) :- ir(X, A), in(cT2_Sakizaya, X), out(cT2_Kanakanavu, X), ix.
+c(r133, A, 1) :- vr(X, A), in(cT2_Sakizaya, X), out(cT2_Kanakanavu, X), ix.
+pie(r133, A, 2) :- ir(X, A), out(cT2_Sakizaya, X), in(cT2_Kanakanavu, X), ix.
+c(r133, A, 2) :- vr(X, A), out(cT2_Sakizaya, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Sediq ! cT2_Hlaalua
+ir(X, r134) :- in(cT2_Sediq, X), in(cT2_Hlaalua, X).
+:- #count {X : vrs(X), in(cT2_Sediq,X), out(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Sediq,X), in(cT2_Hlaalua,X)} <= 0, pw.
+pie(r134, A, 1) :- ir(X, A), in(cT2_Sediq, X), out(cT2_Hlaalua, X), ix.
+c(r134, A, 1) :- vr(X, A), in(cT2_Sediq, X), out(cT2_Hlaalua, X), ix.
+pie(r134, A, 2) :- ir(X, A), out(cT2_Sediq, X), in(cT2_Hlaalua, X), ix.
+c(r134, A, 2) :- vr(X, A), out(cT2_Sediq, X), in(cT2_Hlaalua, X), ix.
+
+% cT2_Sediq ! cT2_Kanakanavu
+ir(X, r135) :- in(cT2_Sediq, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Sediq,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Sediq,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r135, A, 1) :- ir(X, A), in(cT2_Sediq, X), out(cT2_Kanakanavu, X), ix.
+c(r135, A, 1) :- vr(X, A), in(cT2_Sediq, X), out(cT2_Kanakanavu, X), ix.
+pie(r135, A, 2) :- ir(X, A), out(cT2_Sediq, X), in(cT2_Kanakanavu, X), ix.
+c(r135, A, 2) :- vr(X, A), out(cT2_Sediq, X), in(cT2_Kanakanavu, X), ix.
+
+% cT2_Hlaalua ! cT2_Kanakanavu
+ir(X, r136) :- in(cT2_Hlaalua, X), in(cT2_Kanakanavu, X).
+:- #count {X : vrs(X), in(cT2_Hlaalua,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT2_Hlaalua,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r136, A, 1) :- ir(X, A), in(cT2_Hlaalua, X), out(cT2_Kanakanavu, X), ix.
+c(r136, A, 1) :- vr(X, A), in(cT2_Hlaalua, X), out(cT2_Kanakanavu, X), ix.
+pie(r136, A, 2) :- ir(X, A), out(cT2_Hlaalua, X), in(cT2_Kanakanavu, X), ix.
+c(r136, A, 2) :- vr(X, A), out(cT2_Hlaalua, X), in(cT2_Kanakanavu, X), ix.
+
+%% ISA
+% cT1_Highland isa cT1_Taiwan
+ir(X, r137) :- in(cT1_Highland, X), out(cT1_Taiwan, X), pw.
+ir(X, prod(r137,R)) :- in(cT1_Highland,X), out3(cT1_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT1_Taiwan,X)} <= 0, pw.
+pie(r137, A, 1) :- ir(X, A), in(cT1_Highland, X), in(cT1_Taiwan, X), ix.
+c(r137, A, 1) :- vr(X, A), in(cT1_Highland, X), in(cT1_Taiwan, X), ix.
+
+% cT1_Lowland isa cT1_Taiwan
+ir(X, r138) :- in(cT1_Lowland, X), out(cT1_Taiwan, X), pw.
+ir(X, prod(r138,R)) :- in(cT1_Lowland,X), out3(cT1_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT1_Lowland,X), in(cT1_Taiwan,X)} <= 0, pw.
+pie(r138, A, 1) :- ir(X, A), in(cT1_Lowland, X), in(cT1_Taiwan, X), ix.
+c(r138, A, 1) :- vr(X, A), in(cT1_Lowland, X), in(cT1_Taiwan, X), ix.
+
+%% coverage
+out3(cT1_Taiwan, X, r139) :- out(cT1_Highland, X), out(cT1_Lowland, X), ix.
+out(cT1_Taiwan, X) :- out(cT1_Highland, X), out(cT1_Lowland, X), pw.
+%% sibling disjointness
+% cT1_Highland ! cT1_Lowland
+ir(X, r140) :- in(cT1_Highland, X), in(cT1_Lowland, X).
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT1_Lowland,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT1_Highland,X), in(cT1_Lowland,X)} <= 0, pw.
+pie(r140, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT1_Lowland, X), ix.
+c(r140, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT1_Lowland, X), ix.
+pie(r140, A, 2) :- ir(X, A), out(cT1_Highland, X), in(cT1_Lowland, X), ix.
+c(r140, A, 2) :- vr(X, A), out(cT1_Highland, X), in(cT1_Lowland, X), ix.
+
+
+%%% Articulations
+% T1.Taiwan equals T2.Taiwan
+ir(X, r141) :- out(cT1_Taiwan,X), in(cT2_Taiwan,X).
+ir(X, r141) :- in(cT1_Taiwan,X), out(cT2_Taiwan,X).
+ir(X, prod(r141,R)) :- out3(cT1_Taiwan, X, R), in(cT2_Taiwan,X), ix.
+ir(X, prod(r141,R)) :- in(cT1_Taiwan,X), out3(cT2_Taiwan, X, R), ix.
+:- #count {X : vrs(X), in(cT1_Taiwan,X), in(cT2_Taiwan,X)} <= 0, pw.
+pie(r141, A, 1) :- ir(X, A), in(cT1_Taiwan, X), in(cT2_Taiwan, X), ix.
+c(r141, A, 1) :- vr(X, A), in(cT1_Taiwan, X), in(cT2_Taiwan, X), ix.
+
+
+% T1.Lowland includes T2.Amis
+ir(X, r142) :- out(cT1_Lowland,X), in(cT2_Amis,X), pw.
+ir(X, prod(r142,R)) :- out3(cT1_Lowland, X, R), in(cT2_Amis,X), ix.
+:- #count {X : vrs(X), in(cT1_Lowland,X), in(cT2_Amis,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Lowland,X), out(cT2_Amis,X)} <= 0, pw.
+pie(r142, A, 1) :- ir(X, A), in(cT1_Lowland, X), out(cT2_Amis, X), ix.
+c(r142, A, 1) :- vr(X, A), in(cT1_Lowland, X), out(cT2_Amis, X), ix.
+
+pie(r142, A, 2) :- ir(X, A), in(cT1_Lowland, X), in(cT2_Amis, X), ix.
+c(r142, A, 2) :- vr(X, A), in(cT1_Lowland, X), in(cT2_Amis, X), ix.
+
+
+% T1.Lowland includes T2.Pinuyumayan
+ir(X, r143) :- out(cT1_Lowland,X), in(cT2_Pinuyumayan,X), pw.
+ir(X, prod(r143,R)) :- out3(cT1_Lowland, X, R), in(cT2_Pinuyumayan,X), ix.
+:- #count {X : vrs(X), in(cT1_Lowland,X), in(cT2_Pinuyumayan,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Lowland,X), out(cT2_Pinuyumayan,X)} <= 0, pw.
+pie(r143, A, 1) :- ir(X, A), in(cT1_Lowland, X), out(cT2_Pinuyumayan, X), ix.
+c(r143, A, 1) :- vr(X, A), in(cT1_Lowland, X), out(cT2_Pinuyumayan, X), ix.
+
+pie(r143, A, 2) :- ir(X, A), in(cT1_Lowland, X), in(cT2_Pinuyumayan, X), ix.
+c(r143, A, 2) :- vr(X, A), in(cT1_Lowland, X), in(cT2_Pinuyumayan, X), ix.
+
+
+% T1.Lowland includes T2.Sakizaya
+ir(X, r144) :- out(cT1_Lowland,X), in(cT2_Sakizaya,X), pw.
+ir(X, prod(r144,R)) :- out3(cT1_Lowland, X, R), in(cT2_Sakizaya,X), ix.
+:- #count {X : vrs(X), in(cT1_Lowland,X), in(cT2_Sakizaya,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Lowland,X), out(cT2_Sakizaya,X)} <= 0, pw.
+pie(r144, A, 1) :- ir(X, A), in(cT1_Lowland, X), out(cT2_Sakizaya, X), ix.
+c(r144, A, 1) :- vr(X, A), in(cT1_Lowland, X), out(cT2_Sakizaya, X), ix.
+
+pie(r144, A, 2) :- ir(X, A), in(cT1_Lowland, X), in(cT2_Sakizaya, X), ix.
+c(r144, A, 2) :- vr(X, A), in(cT1_Lowland, X), in(cT2_Sakizaya, X), ix.
+
+
+% T1.Lowland includes T2.Kavalan
+ir(X, r145) :- out(cT1_Lowland,X), in(cT2_Kavalan,X), pw.
+ir(X, prod(r145,R)) :- out3(cT1_Lowland, X, R), in(cT2_Kavalan,X), ix.
+:- #count {X : vrs(X), in(cT1_Lowland,X), in(cT2_Kavalan,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Lowland,X), out(cT2_Kavalan,X)} <= 0, pw.
+pie(r145, A, 1) :- ir(X, A), in(cT1_Lowland, X), out(cT2_Kavalan, X), ix.
+c(r145, A, 1) :- vr(X, A), in(cT1_Lowland, X), out(cT2_Kavalan, X), ix.
+
+pie(r145, A, 2) :- ir(X, A), in(cT1_Lowland, X), in(cT2_Kavalan, X), ix.
+c(r145, A, 2) :- vr(X, A), in(cT1_Lowland, X), in(cT2_Kavalan, X), ix.
+
+
+% T1.Lowland includes T2.Thao
+ir(X, r146) :- out(cT1_Lowland,X), in(cT2_Thao,X), pw.
+ir(X, prod(r146,R)) :- out3(cT1_Lowland, X, R), in(cT2_Thao,X), ix.
+:- #count {X : vrs(X), in(cT1_Lowland,X), in(cT2_Thao,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Lowland,X), out(cT2_Thao,X)} <= 0, pw.
+pie(r146, A, 1) :- ir(X, A), in(cT1_Lowland, X), out(cT2_Thao, X), ix.
+c(r146, A, 1) :- vr(X, A), in(cT1_Lowland, X), out(cT2_Thao, X), ix.
+
+pie(r146, A, 2) :- ir(X, A), in(cT1_Lowland, X), in(cT2_Thao, X), ix.
+c(r146, A, 2) :- vr(X, A), in(cT1_Lowland, X), in(cT2_Thao, X), ix.
+
+
+% T1.Highland includes T2.Truku
+ir(X, r147) :- out(cT1_Highland,X), in(cT2_Truku,X), pw.
+ir(X, prod(r147,R)) :- out3(cT1_Highland, X, R), in(cT2_Truku,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Truku,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Truku,X)} <= 0, pw.
+pie(r147, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Truku, X), ix.
+c(r147, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Truku, X), ix.
+
+pie(r147, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Truku, X), ix.
+c(r147, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Truku, X), ix.
+
+
+% T1.Highland includes T2.Atayal
+ir(X, r148) :- out(cT1_Highland,X), in(cT2_Atayal,X), pw.
+ir(X, prod(r148,R)) :- out3(cT1_Highland, X, R), in(cT2_Atayal,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Atayal,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Atayal,X)} <= 0, pw.
+pie(r148, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Atayal, X), ix.
+c(r148, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Atayal, X), ix.
+
+pie(r148, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Atayal, X), ix.
+c(r148, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Atayal, X), ix.
+
+
+% T1.Lowland overlaps T2.Paiwan
+:- #count {X : vrs(X), in(cT1_Lowland,X), in(cT2_Paiwan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT1_Lowland,X), in(cT2_Paiwan,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Lowland,X), out(cT2_Paiwan,X)} <= 0, pw.
+pie(r149, A, 1) :- ir(X, A), out(cT1_Lowland, X), in(cT2_Paiwan, X), ix.
+c(r149, A, 1) :- vr(X, A), out(cT1_Lowland, X), in(cT2_Paiwan, X), ix.
+
+pie(r149, A, 2) :- ir(X, A), in(cT1_Lowland, X), out(cT2_Paiwan, X), ix.
+c(r149, A, 2) :- vr(X, A), in(cT1_Lowland, X), out(cT2_Paiwan, X), ix.
+
+pie(r149, A, 3) :- ir(X, A), in(cT1_Lowland, X), in(cT2_Paiwan, X), ix.
+c(r149, A, 3) :- vr(X, A), in(cT1_Lowland, X), in(cT2_Paiwan, X), ix.
+
+
+% T1.Highland overlaps T2.Paiwan
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Paiwan,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT1_Highland,X), in(cT2_Paiwan,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Paiwan,X)} <= 0, pw.
+pie(r150, A, 1) :- ir(X, A), out(cT1_Highland, X), in(cT2_Paiwan, X), ix.
+c(r150, A, 1) :- vr(X, A), out(cT1_Highland, X), in(cT2_Paiwan, X), ix.
+
+pie(r150, A, 2) :- ir(X, A), in(cT1_Highland, X), out(cT2_Paiwan, X), ix.
+c(r150, A, 2) :- vr(X, A), in(cT1_Highland, X), out(cT2_Paiwan, X), ix.
+
+pie(r150, A, 3) :- ir(X, A), in(cT1_Highland, X), in(cT2_Paiwan, X), ix.
+c(r150, A, 3) :- vr(X, A), in(cT1_Highland, X), in(cT2_Paiwan, X), ix.
+
+
+% T1.Highland includes T2.Bunun
+ir(X, r151) :- out(cT1_Highland,X), in(cT2_Bunun,X), pw.
+ir(X, prod(r151,R)) :- out3(cT1_Highland, X, R), in(cT2_Bunun,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Bunun,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Bunun,X)} <= 0, pw.
+pie(r151, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Bunun, X), ix.
+c(r151, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Bunun, X), ix.
+
+pie(r151, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Bunun, X), ix.
+c(r151, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Bunun, X), ix.
+
+
+% T1.Highland includes T2.Tsou
+ir(X, r152) :- out(cT1_Highland,X), in(cT2_Tsou,X), pw.
+ir(X, prod(r152,R)) :- out3(cT1_Highland, X, R), in(cT2_Tsou,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Tsou,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Tsou,X)} <= 0, pw.
+pie(r152, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Tsou, X), ix.
+c(r152, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Tsou, X), ix.
+
+pie(r152, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Tsou, X), ix.
+c(r152, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Tsou, X), ix.
+
+
+% T1.Highland includes T2.Hlaalua
+ir(X, r153) :- out(cT1_Highland,X), in(cT2_Hlaalua,X), pw.
+ir(X, prod(r153,R)) :- out3(cT1_Highland, X, R), in(cT2_Hlaalua,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Hlaalua,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Hlaalua,X)} <= 0, pw.
+pie(r153, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Hlaalua, X), ix.
+c(r153, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Hlaalua, X), ix.
+
+pie(r153, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Hlaalua, X), ix.
+c(r153, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Hlaalua, X), ix.
+
+
+% T1.Highland includes T2.Kanakanavu
+ir(X, r154) :- out(cT1_Highland,X), in(cT2_Kanakanavu,X), pw.
+ir(X, prod(r154,R)) :- out3(cT1_Highland, X, R), in(cT2_Kanakanavu,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Kanakanavu,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Kanakanavu,X)} <= 0, pw.
+pie(r154, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Kanakanavu, X), ix.
+c(r154, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Kanakanavu, X), ix.
+
+pie(r154, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Kanakanavu, X), ix.
+c(r154, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Kanakanavu, X), ix.
+
+
+% T1.Lowland overlaps T2.Saisiyat
+:- #count {X : vrs(X), in(cT1_Lowland,X), in(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT1_Lowland,X), in(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Lowland,X), out(cT2_Saisiyat,X)} <= 0, pw.
+pie(r155, A, 1) :- ir(X, A), out(cT1_Lowland, X), in(cT2_Saisiyat, X), ix.
+c(r155, A, 1) :- vr(X, A), out(cT1_Lowland, X), in(cT2_Saisiyat, X), ix.
+
+pie(r155, A, 2) :- ir(X, A), in(cT1_Lowland, X), out(cT2_Saisiyat, X), ix.
+c(r155, A, 2) :- vr(X, A), in(cT1_Lowland, X), out(cT2_Saisiyat, X), ix.
+
+pie(r155, A, 3) :- ir(X, A), in(cT1_Lowland, X), in(cT2_Saisiyat, X), ix.
+c(r155, A, 3) :- vr(X, A), in(cT1_Lowland, X), in(cT2_Saisiyat, X), ix.
+
+
+% T1.Highland overlaps T2.Saisiyat
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), out(cT1_Highland,X), in(cT2_Saisiyat,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Saisiyat,X)} <= 0, pw.
+pie(r156, A, 1) :- ir(X, A), out(cT1_Highland, X), in(cT2_Saisiyat, X), ix.
+c(r156, A, 1) :- vr(X, A), out(cT1_Highland, X), in(cT2_Saisiyat, X), ix.
+
+pie(r156, A, 2) :- ir(X, A), in(cT1_Highland, X), out(cT2_Saisiyat, X), ix.
+c(r156, A, 2) :- vr(X, A), in(cT1_Highland, X), out(cT2_Saisiyat, X), ix.
+
+pie(r156, A, 3) :- ir(X, A), in(cT1_Highland, X), in(cT2_Saisiyat, X), ix.
+c(r156, A, 3) :- vr(X, A), in(cT1_Highland, X), in(cT2_Saisiyat, X), ix.
+
+
+% T1.Highland includes T2.Rukai
+ir(X, r157) :- out(cT1_Highland,X), in(cT2_Rukai,X), pw.
+ir(X, prod(r157,R)) :- out3(cT1_Highland, X, R), in(cT2_Rukai,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Rukai,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Rukai,X)} <= 0, pw.
+pie(r157, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Rukai, X), ix.
+c(r157, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Rukai, X), ix.
+
+pie(r157, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Rukai, X), ix.
+c(r157, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Rukai, X), ix.
+
+
+% T1.Highland includes T2.Sediq
+ir(X, r158) :- out(cT1_Highland,X), in(cT2_Sediq,X), pw.
+ir(X, prod(r158,R)) :- out3(cT1_Highland, X, R), in(cT2_Sediq,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Sediq,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Sediq,X)} <= 0, pw.
+pie(r158, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Sediq, X), ix.
+c(r158, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Sediq, X), ix.
+
+pie(r158, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Sediq, X), ix.
+c(r158, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Sediq, X), ix.
+
+
+% T1.Highland includes T2.Yami
+ir(X, r159) :- out(cT1_Highland,X), in(cT2_Yami,X), pw.
+ir(X, prod(r159,R)) :- out3(cT1_Highland, X, R), in(cT2_Yami,X), ix.
+:- #count {X : vrs(X), in(cT1_Highland,X), in(cT2_Yami,X)} <= 0, pw.
+:- #count {X : vrs(X), in(cT1_Highland,X), out(cT2_Yami,X)} <= 0, pw.
+pie(r159, A, 1) :- ir(X, A), in(cT1_Highland, X), out(cT2_Yami, X), ix.
+c(r159, A, 1) :- vr(X, A), in(cT1_Highland, X), out(cT2_Yami, X), ix.
+
+pie(r159, A, 2) :- ir(X, A), in(cT1_Highland, X), in(cT2_Yami, X), ix.
+c(r159, A, 2) :- vr(X, A), in(cT1_Highland, X), in(cT2_Yami, X), ix.
+
+
+%%% Decoding now
+:- rel(X, Y, "="), rel(X, Y, "<"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, "="), rel(X, Y, ">"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, "="), rel(X, Y, "><"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, "="), rel(X, Y, "!"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, "<"), rel(X, Y, ">"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, "<"), rel(X, Y, "><"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, "<"), rel(X, Y, "!"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, ">"), rel(X, Y, "><"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, ">"), rel(X, Y, "!"), concept2(X, N1), concept2(Y, N2), pw.
+:- rel(X, Y, "><"), rel(X, Y, "!"), concept2(X, N1), concept2(Y, N2), pw.
+:- not rel(X, Y, "="), not rel(X, Y, "<"), not rel(X, Y, ">"), not rel(X, Y, "><"), not rel(X, Y, "!"), concept2(X, N1), concept2(Y, N2), N1 < N2, not ncf(X), not ncf(Y), pw.
+
+rel(X, Y, "=") :- not hint(X, Y, 0), hint(X, Y, 1), not hint(X, Y, 2), pw.
+rel(X, Y, "<") :- not hint(X, Y, 0), hint(X, Y, 1), hint(X, Y, 2), pw.
+rel(X, Y, ">") :- hint(X, Y, 0), hint(X, Y, 1), not hint(X, Y, 2), pw.
+rel(X, Y, "><") :- hint(X, Y, 0), hint(X, Y, 1), hint(X, Y, 2), pw.
+rel(X, Y, "!") :- hint(X, Y, 0), not hint(X, Y, 1), hint(X, Y, 2), pw.
+
+
+hint(X, Y, 0) :- concept2(X, N1), concept2(Y, N2), N1 < N2, vrs(R), in(X, R), out(Y, R), not ncf(X), not ncf(Y), pw.
+hint(X, Y, 1) :- concept2(X, N1), concept2(Y, N2), N1 < N2, vrs(R), in(X, R), in(Y, R), not ncf(X), not ncf(Y), pw.
+hint(X, Y, 2) :- concept2(X, N1), concept2(Y, N2), N1 < N2, vrs(R), out(X, R), in(Y, R), not ncf(X), not ncf(Y), pw.
+

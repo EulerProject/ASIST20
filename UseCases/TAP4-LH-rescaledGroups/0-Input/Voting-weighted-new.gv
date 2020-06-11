@@ -1,0 +1,69 @@
+digraph{
+rankdir=LR
+node[shape=circle style=filled fillcolor="#FFFFFF"] 
+node[shape=note style=filled fillcolor="#FFFFCC" fontname="helvetica"] 
+"T5.Taiwan"
+"T5.Bunun"
+"T5.Amis"
+"T5.Paiwan"
+"T5.Atayal"
+
+node[shape=box style="filled,rounded,dotted" fillcolor="#FFCB99" fontname="helvetica"] 
+"T5.Combined"
+
+
+node[shape=circle style=filled fillcolor="#FFFFFF"] 
+node[shape=box style=filled fillcolor="#CCFFCC" fontname="helvetica"] 
+"T1.Highland"
+"T1.Lowland"
+"T1.Taiwan"
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+"T1.Taiwan" -> "T1.Lowland" [dir=back]
+"T1.Taiwan" -> "T1.Highland" [dir=back]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+"T5.Combined" -> "T5.Taiwan"
+"T5.Atayal" -> "T5.Taiwan"
+"T5.Paiwan" -> "T5.Taiwan"
+"T5.Amis" -> "T5.Taiwan"
+"T5.Bunun" -> "T5.Taiwan"
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=dashed color="#AA00FF" constraint=true penwidth=2 dir=both]
+"T1.Taiwan" -> "T5.Taiwan" [label="="]
+"T1.Lowland" -> "T5.Amis" [label=">"]
+"T1.Highland" -> "T5.Bunun" [label=">"]
+"T1.Highland" -> "T5.Atayal" [label=">"]
+"T1.Highland" -> "T5.Paiwan" [label="o"]
+"T1.Lowland" -> "T5.Paiwan" [label="o"]
+
+edge[arrowhead=normal style=dashed color="#FF7F00" constraint=true penwidth=3]
+"T1.Highland" -> "T5.Combined" [label="o"]
+"T1.Lowland" -> "T5.Combined" [label="o"]
+
+
+node[shape=box] 
+{rank=source Legend [fillcolor= white margin=0 label=< 
+ <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> 
+<TR> <TD COLSPAN="2"><font face="Arial Black"> Nodes</font></TD> </TR> 
+<TR> 
+ <TD bgcolor="#FFFFCC" fontname="helvetica">T5</TD> 
+ <TD>6</TD> 
+ </TR> 
+<TR> 
+ <TD bgcolor="#CCFFCC" fontname="helvetica">T1</TD> 
+ <TD>3</TD> 
+ </TR> 
+<TR> <TD COLSPAN="2"><font face = "Arial Black"> Edges </font></TD> </TR> 
+<TR> 
+ <TD><font color ="#000000">is_a (T1)</font></TD><TD>2</TD>
+</TR>
+<TR> 
+ <TD><font color ="#000000">is_a (T5)</font></TD><TD>5</TD>
+</TR>
+<TR> 
+ <TD><font color ="#AA00FF">articulations</font></TD><TD>8</TD>
+</TR>
+</TABLE> 
+ >] } 
+}

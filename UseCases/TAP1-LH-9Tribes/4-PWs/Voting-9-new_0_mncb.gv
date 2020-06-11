@@ -1,0 +1,92 @@
+digraph{
+rankdir=RL
+node[shape=box style="filled,rounded" fillcolor="#EEEEEE" fontname="helvetica"] 
+"T1.Taiwan\nT2.Taiwan"
+node[shape=box style="filled,rounded,bold" fillcolor="#FFE0D8" fontname="helvetica"] 
+"T1.Highland \\ T2.Saisiyat"
+"T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland"
+"T1.Highland \\ T2.Paiwan"
+"T1.Lowland * T2.Saisiyat\nT2.Saisiyat \\ T1.Highland"
+"T1.Lowland \\ T2.Saisiyat"
+"T1.Highland * T2.Saisiyat\nT2.Saisiyat \\ T1.Lowland"
+"T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland"
+"T1.Lowland \\ T2.Paiwan"
+node[shape=note style=filled fillcolor="#FFFFCC" fontname="helvetica"] 
+"T2.Yami"
+"T2.Rukai"
+"T2.Tsou"
+"T2.Atayal"
+"T2.Amis"
+"T2.Bunun"
+"T2.Pinuyumayan"
+"T2.Saisiyat"
+"T2.Paiwan"
+
+node[shape=box style=filled fillcolor="#CCFFCC" fontname="helvetica"] 
+"T1.Lowland"
+"T1.Highland"
+edge[arrowhead=normal style=dotted color="#000000" constraint=true penwidth=1]
+edge[arrowhead=normal style=solid color="#FF0000" constraint=true penwidth=1]
+"T2.Rukai" -> "T1.Highland \\ T2.Paiwan"
+"T2.Amis" -> "T1.Lowland \\ T2.Saisiyat"
+"T1.Highland \\ T2.Paiwan" -> "T1.Highland"
+"T2.Rukai" -> "T1.Highland \\ T2.Saisiyat"
+"T2.Tsou" -> "T1.Highland \\ T2.Paiwan"
+"T1.Highland \\ T2.Saisiyat" -> "T1.Highland"
+"T1.Lowland \\ T2.Paiwan" -> "T1.Lowland"
+"T2.Yami" -> "T1.Highland \\ T2.Paiwan"
+"T1.Highland * T2.Saisiyat\nT2.Saisiyat \\ T1.Lowland" -> "T1.Highland \\ T2.Paiwan"
+"T1.Lowland * T2.Saisiyat\nT2.Saisiyat \\ T1.Highland" -> "T1.Lowland \\ T2.Paiwan"
+"T2.Tsou" -> "T1.Highland \\ T2.Saisiyat"
+"T2.Bunun" -> "T1.Highland \\ T2.Paiwan"
+"T2.Atayal" -> "T1.Highland \\ T2.Saisiyat"
+"T2.Bunun" -> "T1.Highland \\ T2.Saisiyat"
+"T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland" -> "T1.Highland \\ T2.Saisiyat"
+"T2.Pinuyumayan" -> "T1.Lowland \\ T2.Saisiyat"
+"T2.Yami" -> "T1.Highland \\ T2.Saisiyat"
+"T1.Lowland \\ T2.Saisiyat" -> "T1.Lowland"
+"T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland" -> "T1.Lowland \\ T2.Saisiyat"
+"T2.Amis" -> "T1.Lowland \\ T2.Paiwan"
+"T2.Atayal" -> "T1.Highland \\ T2.Paiwan"
+"T2.Pinuyumayan" -> "T1.Lowland \\ T2.Paiwan"
+edge[arrowhead=normal style=solid color="#000000" constraint=true penwidth=1]
+"T1.Highland" -> "T1.Taiwan\nT2.Taiwan"
+"T2.Paiwan" -> "T1.Taiwan\nT2.Taiwan"
+"T2.Saisiyat" -> "T1.Taiwan\nT2.Taiwan"
+"T1.Lowland" -> "T1.Taiwan\nT2.Taiwan"
+"T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland" -> "T2.Paiwan"
+"T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland" -> "T2.Paiwan"
+"T1.Highland * T2.Saisiyat\nT2.Saisiyat \\ T1.Lowland" -> "T2.Saisiyat"
+"T1.Lowland * T2.Saisiyat\nT2.Saisiyat \\ T1.Highland" -> "T2.Saisiyat"
+
+
+node[shape=box] 
+{rank=source Legend [fillcolor= white margin=0 label=< 
+ <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> 
+<TR> <TD COLSPAN="2"><font face="Arial Black"> Nodes</font></TD> </TR> 
+<TR> 
+ <TD bgcolor="#EEEEEE" fontname="helvetica">congruent</TD> 
+ <TD>1</TD> 
+ </TR> 
+<TR> 
+ <TD bgcolor="#FFE0D8" fontname="helvetica">*NEW*</TD> 
+ <TD>8</TD> 
+ </TR> 
+<TR> 
+ <TD bgcolor="#FFFFCC" fontname="helvetica">T2</TD> 
+ <TD>9</TD> 
+ </TR> 
+<TR> 
+ <TD bgcolor="#CCFFCC" fontname="helvetica">T1</TD> 
+ <TD>2</TD> 
+ </TR> 
+<TR> <TD COLSPAN="2"><font face = "Arial Black"> Edges </font></TD> </TR> 
+<TR> 
+ <TD><font color ="#FF0000">is_a (inferred)</font></TD><TD>26</TD>
+</TR>
+<TR> 
+ <TD><font color ="#000000">is_a (input)</font></TD><TD>4</TD>
+</TR>
+</TABLE> 
+ >] } 
+}

@@ -1,0 +1,136 @@
+'*NEW*.T1.Highland * T2.Combined\nT2.Combined \\ T1.Lowland':
+  concept: T1.Highland * T2.Combined\nT2.Combined \\ T1.Lowland
+  group: '*NEW*'
+'*NEW*.T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland':
+  concept: T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland
+  group: '*NEW*'
+'*NEW*.T1.Highland \\ T2.Combined':
+  concept: T1.Highland \\ T2.Combined
+  group: '*NEW*'
+'*NEW*.T1.Highland \\ T2.Paiwan':
+  concept: T1.Highland \\ T2.Paiwan
+  group: '*NEW*'
+'*NEW*.T1.Lowland * T2.Combined\nT2.Combined \\ T1.Highland':
+  concept: T1.Lowland * T2.Combined\nT2.Combined \\ T1.Highland
+  group: '*NEW*'
+'*NEW*.T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland':
+  concept: T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland
+  group: '*NEW*'
+'*NEW*.T1.Lowland \\ T2.Combined':
+  concept: T1.Lowland \\ T2.Combined
+  group: '*NEW*'
+'*NEW*.T1.Lowland \\ T2.Paiwan':
+  concept: T1.Lowland \\ T2.Paiwan
+  group: '*NEW*'
+T1.Highland:
+  concept: Highland
+  group: T1
+T1.Lowland:
+  concept: Lowland
+  group: T1
+T2.Amis:
+  concept: Amis
+  group: T2
+T2.Atayal:
+  concept: Atayal
+  group: T2
+T2.Bunun:
+  concept: Bunun
+  group: T2
+T2.Combined:
+  concept: Combined
+  group: T2
+T2.Paiwan:
+  concept: Paiwan
+  group: T2
+congruent.T1.Taiwan\nT2.Taiwan:
+  concept: T1.Taiwan\nT2.Taiwan
+  group: congruent
+T1.Highland * T2.Combined\nT2.Combined \\ T1.Lowland_T1.Highland \\ T2.Paiwan:
+  label: is_a (inferred)
+  s: T1.Highland * T2.Combined\nT2.Combined \\ T1.Lowland
+  t: T1.Highland \\ T2.Paiwan
+T1.Highland * T2.Combined\nT2.Combined \\ T1.Lowland_T2.Combined:
+  label: is_a (inferred)
+  s: T1.Highland * T2.Combined\nT2.Combined \\ T1.Lowland
+  t: T2.Combined
+T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland_T1.Highland \\ T2.Combined:
+  label: is_a (inferred)
+  s: T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland
+  t: T1.Highland \\ T2.Combined
+T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland_T2.Paiwan:
+  label: is_a (inferred)
+  s: T1.Highland * T2.Paiwan\nT2.Paiwan \\ T1.Lowland
+  t: T2.Paiwan
+T1.Highland \\ T2.Combined_T1.Highland:
+  label: is_a (inferred)
+  s: T1.Highland \\ T2.Combined
+  t: T1.Highland
+T1.Highland \\ T2.Paiwan_T1.Highland:
+  label: is_a (inferred)
+  s: T1.Highland \\ T2.Paiwan
+  t: T1.Highland
+T1.Highland_T1.Taiwan\nT2.Taiwan:
+  label: is_a (input)
+  s: T1.Highland
+  t: T1.Taiwan\nT2.Taiwan
+T1.Lowland * T2.Combined\nT2.Combined \\ T1.Highland_T1.Lowland \\ T2.Paiwan:
+  label: is_a (inferred)
+  s: T1.Lowland * T2.Combined\nT2.Combined \\ T1.Highland
+  t: T1.Lowland \\ T2.Paiwan
+T1.Lowland * T2.Combined\nT2.Combined \\ T1.Highland_T2.Combined:
+  label: is_a (inferred)
+  s: T1.Lowland * T2.Combined\nT2.Combined \\ T1.Highland
+  t: T2.Combined
+T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland_T1.Lowland \\ T2.Combined:
+  label: is_a (inferred)
+  s: T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland
+  t: T1.Lowland \\ T2.Combined
+T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland_T2.Paiwan:
+  label: is_a (inferred)
+  s: T1.Lowland * T2.Paiwan\nT2.Paiwan \\ T1.Highland
+  t: T2.Paiwan
+T1.Lowland \\ T2.Combined_T1.Lowland:
+  label: is_a (inferred)
+  s: T1.Lowland \\ T2.Combined
+  t: T1.Lowland
+T1.Lowland \\ T2.Paiwan_T1.Lowland:
+  label: is_a (inferred)
+  s: T1.Lowland \\ T2.Paiwan
+  t: T1.Lowland
+T1.Lowland_T1.Taiwan\nT2.Taiwan:
+  label: is_a (input)
+  s: T1.Lowland
+  t: T1.Taiwan\nT2.Taiwan
+T2.Amis_T1.Lowland \\ T2.Combined:
+  label: is_a (inferred)
+  s: T2.Amis
+  t: T1.Lowland \\ T2.Combined
+T2.Amis_T1.Lowland \\ T2.Paiwan:
+  label: is_a (inferred)
+  s: T2.Amis
+  t: T1.Lowland \\ T2.Paiwan
+T2.Atayal_T1.Highland \\ T2.Combined:
+  label: is_a (inferred)
+  s: T2.Atayal
+  t: T1.Highland \\ T2.Combined
+T2.Atayal_T1.Highland \\ T2.Paiwan:
+  label: is_a (inferred)
+  s: T2.Atayal
+  t: T1.Highland \\ T2.Paiwan
+T2.Bunun_T1.Highland \\ T2.Combined:
+  label: is_a (inferred)
+  s: T2.Bunun
+  t: T1.Highland \\ T2.Combined
+T2.Bunun_T1.Highland \\ T2.Paiwan:
+  label: is_a (inferred)
+  s: T2.Bunun
+  t: T1.Highland \\ T2.Paiwan
+T2.Combined_T1.Taiwan\nT2.Taiwan:
+  label: is_a (input)
+  s: T2.Combined
+  t: T1.Taiwan\nT2.Taiwan
+T2.Paiwan_T1.Taiwan\nT2.Taiwan:
+  label: is_a (input)
+  s: T2.Paiwan
+  t: T1.Taiwan\nT2.Taiwan

@@ -1,0 +1,94 @@
+digraph{
+rankdir=LR
+node[shape=circle style=filled fillcolor="#FFFFFF"] 
+node[shape=note style=filled fillcolor="#FFFFCC" fontname="helvetica"] 
+"T2.Taiwan"
+"T2.Yami"
+"T2.Thao"
+"T2.Rukai"
+"T2.Paiwan"
+"T2.Tsou"
+"T2.Atayal"
+"T2.Saisiyat"
+"T2.Kanakanavu"
+"T2.Amis"
+"T2.Sediq"
+"T2.Bunun"
+"T2.Sakizaya"
+"T2.Kavalan"
+"T2.Truku"
+"T2.Pinuyumayan"
+"T2.Hlaalua"
+node[shape=circle style=filled fillcolor="#FFFFFF"] 
+node[shape=box style=filled fillcolor="#CCFFCC" fontname="helvetica"] 
+"T1.Lowland"
+"T1.Taiwan"
+"T1.Highland"
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+"T1.Taiwan" -> "T1.Lowland" [dir=back]
+"T1.Taiwan" -> "T1.Highland" [dir=back]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+"T2.Saisiyat" -> "T2.Taiwan"
+"T2.Tsou" -> "T2.Taiwan"
+"T2.Atayal" -> "T2.Taiwan"
+"T2.Truku" -> "T2.Taiwan"
+"T2.Paiwan" -> "T2.Taiwan"
+"T2.Sediq" -> "T2.Taiwan"
+"T2.Amis" -> "T2.Taiwan"
+"T2.Hlaalua" -> "T2.Taiwan"
+"T2.Thao" -> "T2.Taiwan"
+"T2.Bunun" -> "T2.Taiwan"
+"T2.Kavalan" -> "T2.Taiwan"
+"T2.Yami" -> "T2.Taiwan"
+"T2.Kanakanavu" -> "T2.Taiwan"
+"T2.Sakizaya" -> "T2.Taiwan"
+"T2.Pinuyumayan" -> "T2.Taiwan"
+"T2.Rukai" -> "T2.Taiwan"
+edge[style=solid color="#000000" constraint=true penwidth=1 dir=forward]
+edge[style=dashed color="#AA00FF" constraint=true penwidth=2 dir=both]
+"T1.Highland" -> "T2.Tsou" [label=">"]
+"T1.Lowland" -> "T2.Thao" [label=">"]
+"T1.Highland" -> "T2.Rukai" [label=">"]
+"T1.Lowland" -> "T2.Pinuyumayan" [label=">"]
+"T1.Lowland" -> "T2.Amis" [label=">"]
+"T1.Highland" -> "T2.Sediq" [label=">"]
+"T1.Highland" -> "T2.Yami" [label=">"]
+"T1.Lowland" -> "T2.Sakizaya" [label=">"]
+"T1.Highland" -> "T2.Paiwan" [label="o"]
+"T1.Highland" -> "T2.Truku" [label=">"]
+"T1.Lowland" -> "T2.Kavalan" [label=">"]
+"T1.Highland" -> "T2.Kanakanavu" [label=">"]
+"T1.Taiwan" -> "T2.Taiwan" [label="="]
+"T1.Highland" -> "T2.Bunun" [label=">"]
+"T1.Lowland" -> "T2.Saisiyat" [label="o"]
+"T1.Highland" -> "T2.Atayal" [label=">"]
+"T1.Highland" -> "T2.Saisiyat" [label="o"]
+"T1.Highland" -> "T2.Hlaalua" [label=">"]
+"T1.Lowland" -> "T2.Paiwan" [label="o"]
+node[shape=box] 
+{rank=source Legend [fillcolor= white margin=0 label=< 
+ <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4"> 
+<TR> <TD COLSPAN="2"><font face="Arial Black"> Nodes</font></TD> </TR> 
+<TR> 
+ <TD bgcolor="#FFFFCC" fontname="helvetica">T2</TD> 
+ <TD>17</TD> 
+ </TR> 
+<TR> 
+ <TD bgcolor="#CCFFCC" fontname="helvetica">T1</TD> 
+ <TD>3</TD> 
+ </TR> 
+<TR> <TD COLSPAN="2"><font face = "Arial Black"> Edges </font></TD> </TR> 
+<TR> 
+ <TD><font color ="#000000">is_a (T1)</font></TD><TD>2</TD>
+</TR>
+<TR> 
+ <TD><font color ="#000000">is_a (T2)</font></TD><TD>16</TD>
+</TR>
+<TR> 
+ <TD><font color ="#AA00FF">articulations</font></TD><TD>19</TD>
+</TR>
+</TABLE> 
+ >] } 
+}

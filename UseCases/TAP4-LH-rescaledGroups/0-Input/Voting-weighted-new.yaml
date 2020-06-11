@@ -1,0 +1,87 @@
+T1.Highland:
+  concept: Highland
+  group: T1
+T1.Lowland:
+  concept: Lowland
+  group: T1
+T1.Taiwan:
+  concept: Taiwan
+  group: T1
+T2.Amis:
+  concept: Amis
+  group: T2
+T2.Atayal:
+  concept: Atayal
+  group: T2
+T2.Bunun:
+  concept: Bunun
+  group: T2
+T2.Combined:
+  concept: Combined
+  group: T2
+T2.Paiwan:
+  concept: Paiwan
+  group: T2
+T2.Taiwan:
+  concept: Taiwan
+  group: T2
+T1.Highland_T1.Taiwan:
+  label: isa
+  s: T1.Highland
+  t: T1.Taiwan
+T1.Highland_T2.Atayal:
+  label: '>'
+  s: T1.Highland
+  t: T2.Atayal
+T1.Highland_T2.Bunun:
+  label: '>'
+  s: T1.Highland
+  t: T2.Bunun
+T1.Highland_T2.Combined:
+  label: o
+  s: T1.Highland
+  t: T2.Combined
+T1.Highland_T2.Paiwan:
+  label: o
+  s: T1.Highland
+  t: T2.Paiwan
+T1.Lowland_T1.Taiwan:
+  label: isa
+  s: T1.Lowland
+  t: T1.Taiwan
+T1.Lowland_T2.Amis:
+  label: '>'
+  s: T1.Lowland
+  t: T2.Amis
+T1.Lowland_T2.Combined:
+  label: o
+  s: T1.Lowland
+  t: T2.Combined
+T1.Lowland_T2.Paiwan:
+  label: o
+  s: T1.Lowland
+  t: T2.Paiwan
+T1.Taiwan_T2.Taiwan:
+  label: '='
+  s: T1.Taiwan
+  t: T2.Taiwan
+T2.Amis_T2.Taiwan:
+  label: isa
+  s: T2.Amis
+  t: T2.Taiwan
+T2.Atayal_T2.Taiwan:
+  label: isa
+  s: T2.Atayal
+  t: T2.Taiwan
+T2.Bunun_T2.Taiwan:
+  label: isa
+  s: T2.Bunun
+  t: T2.Taiwan
+T2.Combined_T2.Taiwan:
+  label: isa
+  s: T2.Combined
+  t: T2.Taiwan
+T2.Paiwan_T2.Taiwan:
+  label: isa
+  s: T2.Paiwan
+  t: T2.Taiwan
