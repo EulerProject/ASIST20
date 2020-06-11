@@ -1,0 +1,131 @@
+T1.Highland:
+  concept: Highland
+  group: T1
+T1.Lowland:
+  concept: Lowland
+  group: T1
+T1.Taiwan:
+  concept: Taiwan
+  group: T1
+T2.Amis:
+  concept: Amis
+  group: T2
+T2.Atayal:
+  concept: Atayal
+  group: T2
+T2.Bunun:
+  concept: Bunun
+  group: T2
+T2.Paiwan:
+  concept: Paiwan
+  group: T2
+T2.Pinuyumayan:
+  concept: Pinuyumayan
+  group: T2
+T2.Rukai:
+  concept: Rukai
+  group: T2
+T2.Saisiyat:
+  concept: Saisiyat
+  group: T2
+T2.Taiwan:
+  concept: Taiwan
+  group: T2
+T2.Tsou:
+  concept: Tsou
+  group: T2
+T2.Yami:
+  concept: Yami
+  group: T2
+T1.Highland_T1.Taiwan:
+  label: isa
+  s: T1.Highland
+  t: T1.Taiwan
+T1.Highland_T2.Atayal:
+  label: '>'
+  s: T1.Highland
+  t: T2.Atayal
+T1.Highland_T2.Bunun:
+  label: '>'
+  s: T1.Highland
+  t: T2.Bunun
+T1.Highland_T2.Paiwan:
+  label: o
+  s: T1.Highland
+  t: T2.Paiwan
+T1.Highland_T2.Rukai:
+  label: '>'
+  s: T1.Highland
+  t: T2.Rukai
+T1.Highland_T2.Saisiyat:
+  label: o
+  s: T1.Highland
+  t: T2.Saisiyat
+T1.Highland_T2.Tsou:
+  label: '>'
+  s: T1.Highland
+  t: T2.Tsou
+T1.Highland_T2.Yami:
+  label: '>'
+  s: T1.Highland
+  t: T2.Yami
+T1.Lowland_T1.Taiwan:
+  label: isa
+  s: T1.Lowland
+  t: T1.Taiwan
+T1.Lowland_T2.Amis:
+  label: '>'
+  s: T1.Lowland
+  t: T2.Amis
+T1.Lowland_T2.Paiwan:
+  label: o
+  s: T1.Lowland
+  t: T2.Paiwan
+T1.Lowland_T2.Pinuyumayan:
+  label: '>'
+  s: T1.Lowland
+  t: T2.Pinuyumayan
+T1.Lowland_T2.Saisiyat:
+  label: o
+  s: T1.Lowland
+  t: T2.Saisiyat
+T1.Taiwan_T2.Taiwan:
+  label: '='
+  s: T1.Taiwan
+  t: T2.Taiwan
+T2.Amis_T2.Taiwan:
+  label: isa
+  s: T2.Amis
+  t: T2.Taiwan
+T2.Atayal_T2.Taiwan:
+  label: isa
+  s: T2.Atayal
+  t: T2.Taiwan
+T2.Bunun_T2.Taiwan:
+  label: isa
+  s: T2.Bunun
+  t: T2.Taiwan
+T2.Paiwan_T2.Taiwan:
+  label: isa
+  s: T2.Paiwan
+  t: T2.Taiwan
+T2.Pinuyumayan_T2.Taiwan:
+  label: isa
+  s: T2.Pinuyumayan
+  t: T2.Taiwan
+T2.Rukai_T2.Taiwan:
+  label: isa
+  s: T2.Rukai
+  t: T2.Taiwan
+T2.Saisiyat_T2.Taiwan:
+  label: isa
+  s: T2.Saisiyat
+  t: T2.Taiwan
+T2.Tsou_T2.Taiwan:
+  label: isa
+  s: T2.Tsou
+  t: T2.Taiwan
+T2.Yami_T2.Taiwan:
+  label: isa
+  s: T2.Yami
+  t: T2.Taiwan
