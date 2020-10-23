@@ -11,7 +11,7 @@ Over the years, information science professionals have been studying biases in K
 
 ## Conference Paper
 - Paper full text (to be added)
-- Slides presentation (to be added)
+- [Slides presentation](https://github.com/EulerProject/ASIST20/blob/master/AM20-long-paper-slides.pdf)
 
 
 ## Use cases
